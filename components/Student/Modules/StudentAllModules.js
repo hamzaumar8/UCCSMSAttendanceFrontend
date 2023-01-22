@@ -116,7 +116,7 @@ const StudentAllModules = ({ modules }) => {
                                 colSpan={6}>
                                 <span>
                                     <div className="text-lg font-bold text-danger">
-                                        No Results Found.
+                                        No Registered Modules Found.
                                     </div>
                                 </span>
                             </td>

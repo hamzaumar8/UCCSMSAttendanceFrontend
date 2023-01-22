@@ -38,12 +38,24 @@ const StudentSideNav = ({ user }) => {
                         <span>Dashboard</span>
                     </NavLink>
                     {user.role === "REP" && (
-                        <NavLink
-                            href="/student/attendances"
-                            active={router.pathname === "/student/attendances"}>
-                            <CalendarDaysIcon className="w-6 h-6" />
-                            <span>Attendance</span>
-                        </NavLink>
+                        <>
+                            <NavLink
+                                href="/student/attendances"
+                                active={
+                                    router.pathname === "/student/attendances"
+                                }>
+                                <CalendarDaysIcon className="w-6 h-6" />
+                                <span>Attendance</span>
+                            </NavLink>
+                            <NavLink
+                                href="/student/reps_modules"
+                                active={
+                                    router.pathname === "/student/reps_modules"
+                                }>
+                                <CalendarDaysIcon className="w-6 h-6" />
+                                <span>Rep's Modules</span>
+                            </NavLink>
+                        </>
                     )}
                     <NavLink
                         href="/student/modules"

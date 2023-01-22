@@ -59,12 +59,12 @@ const StudentAllResults = ({ studentResults }) => {
                                             </span>
                                         </td>
                                         <td className="capitalize p-3  border-b">
-                                            {grade.status === "submit"
+                                            {grade.status === "publish"
                                                 ? grade.score
                                                 : "---"}
                                         </td>
                                         <td className="capitalize px-2 pr-6 py-3 text-center border-b">
-                                            {grade.status === "submit" ? (
+                                            {grade.status === "publish" ? (
                                                 <span
                                                     className={`${
                                                         grade.remarks ===
