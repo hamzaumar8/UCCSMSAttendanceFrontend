@@ -11,7 +11,6 @@ import Button from "../../components/Button";
 import Link from "next/link";
 
 const Settings = ({ promotion }) => {
-    console.log(promotion);
     const { semester, promoteStudent, loading } = useSemester();
     const [errors, setErrors] = useState([]);
     const [status, setStatus] = useState(null);

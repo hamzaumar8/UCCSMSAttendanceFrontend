@@ -6,6 +6,7 @@ import {
     Cog6ToothIcon,
     PencilSquareIcon,
     RectangleGroupIcon,
+    TableCellsIcon,
     UserGroupIcon,
     UsersIcon,
 } from "@heroicons/react/24/outline";
@@ -76,6 +77,12 @@ const SideNav = () => {
                         active={router.pathname === "/groups"}>
                         <RectangleGroupIcon className="w-6 h-6" />
                         <span>Groups</span>
+                    </NavLink>
+                    <NavLink
+                        href="/timetables"
+                        active={router.pathname === "/timetables"}>
+                        <TableCellsIcon className="w-6 h-6" />
+                        <span>Timetables</span>
                     </NavLink>
                     <NavLink
                         href="/settings"
