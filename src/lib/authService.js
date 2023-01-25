@@ -1,13 +1,9 @@
 import Cookies from "js-cookie";
 
 export const saveAuthToken = token => {
-    Cookies.set("token", token);
+    Cookies.set("token", token, { expires: 1 / 48 });
 };
 
 export const removeAuthToken = () => {
     Cookies.remove("token");
-};
-
-export const saveAuthUser = user => {
-    Cookies.set("user", user);
 };

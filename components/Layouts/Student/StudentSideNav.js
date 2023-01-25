@@ -2,8 +2,10 @@ import {
     ArrowLeftOnRectangleIcon,
     CalendarDaysIcon,
     ChartBarIcon,
+    ClipboardDocumentCheckIcon,
     CloudArrowDownIcon,
     PencilSquareIcon,
+    UserGroupIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -52,7 +54,7 @@ const StudentSideNav = ({ user }) => {
                                 active={
                                     router.pathname === "/student/reps_modules"
                                 }>
-                                <CalendarDaysIcon className="w-6 h-6" />
+                                <ClipboardDocumentCheckIcon className="w-6 h-6" />
                                 <span>Rep's Modules</span>
                             </NavLink>
                         </>
@@ -66,7 +68,7 @@ const StudentSideNav = ({ user }) => {
                     <NavLink
                         href="/student/groups"
                         active={router.pathname === "/student/groups"}>
-                        <PencilSquareIcon className="w-6 h-6" />
+                        <UserGroupIcon className="w-6 h-6" />
                         <span>Groups</span>
                     </NavLink>
                     <NavLink

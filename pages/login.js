@@ -46,7 +46,7 @@ const Login = () => {
     };
 
     return (
-        <GuestLayout>
+        <GuestLayout heading="Login">
             <AuthCard
                 logo={
                     <Link href="/">

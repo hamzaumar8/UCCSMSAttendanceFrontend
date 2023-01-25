@@ -1,13 +1,11 @@
 import { AnimatePresence, motion } from "framer-motion";
-import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import HeadTitle from "../components/HeadTitle";
+import GuestLayout from "../components/Layouts/GuestLayout";
 
 const images = ["/img1.jpg", "/img2.jpg", "/img3.jpg"];
-export default function Home() {
-    const token = Cookies.get("token");
+const Home = ({ heading }) => {
     const [imgIndex, setImgIndex] = useState(0);
     const timeoutRef = useRef(null);
 
@@ -33,27 +31,26 @@ export default function Home() {
     }, [imgIndex]);
 
     return (
-        <>
-            <HeadTitle title={"Welcome"} />
-
+        <GuestLayout heading={heading}>
             <div className="relative min-h-screen bg-gray-100 p-3 lg:p-0 space-y-10 lg:space-y-0 lg:flex">
-                <AnimatePresence mode="wait" initial={false}>
-                    <motion.div
-                        key={imgIndex}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.2, ease: "easeInOut" }}
-                        className="relative w-full lg:w-1/2 min-h-[50vh] rounded-lg lg:rounded-none overflow-hidden before:absolute before:top-0 before:left-0 before:h-full before:w-full before:bg-black before:opacity-20 before:z-10">
-                        <Image
-                            src={images[imgIndex]}
-                            fill
-                            priority
-                            alt={imgIndex}
-                            className="relative object-cover"
-                        />
-                    </motion.div>
-                </AnimatePresence>
+                <div className="relative w-full lg:w-1/2 min-h-[70vh] rounded-lg lg:rounded-none overflow-hidden before:absolute before:top-0 before:left-0 before:h-full before:w-full before:bg-black before:opacity-20 before:z-10">
+                    <AnimatePresence mode="wait" initial={false}>
+                        <motion.div
+                            key={imgIndex}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.3, ease: "easeInOut" }}>
+                            <Image
+                                src={images[imgIndex]}
+                                fill
+                                priority
+                                alt={imgIndex}
+                                className="relative object-cover"
+                            />
+                        </motion.div>
+                    </AnimatePresence>
+                </div>
 
                 <div className="space-y-10 w-full lg:w-1/2 lg:flex lg:flex-col lg:items-center lg:justify-center lg:min-h-screen lg:p-6">
                     <div className="text-center">
@@ -79,22 +76,24 @@ export default function Home() {
                     </div>
 
                     <div className="w-full">
-                        {token ? (
-                            <Link
-                                href={"/dashboard"}
-                                className="w-full inline-flex items-center justify-center px-4 py-3  border border-transparent rounded-sm font-bold text-xs uppercase tracking-widest focus:ring disabled:opacity-25 transition ease-in-out duration-150 text-white bg-primary hover:bg-primary active:bg-primary focus:outline-none focus:border-primary ring-primary">
-                                Dashboard
-                            </Link>
-                        ) : (
-                            <Link
-                                href={"/login"}
-                                className="w-full inline-flex items-center justify-center px-4 py-3  border border-transparent rounded-sm font-bold text-xs uppercase tracking-widest focus:ring disabled:opacity-25 transition ease-in-out duration-150 text-white bg-primary hover:bg-primary active:bg-primary focus:outline-none focus:border-primary ring-primary">
-                                Login
-                            </Link>
-                        )}
+                        <Link
+                            href={"/login"}
+                            className="w-full inline-flex items-center justify-center px-4 py-3  border border-transparent rounded-sm font-bold text-xs uppercase tracking-widest focus:ring disabled:opacity-25 transition ease-in-out duration-150 text-white bg-primary hover:bg-primary active:bg-primary focus:outline-none focus:border-primary ring-primary">
+                            Login
+                        </Link>
                     </div>
                 </div>
             </div>
-        </>
+        </GuestLayout>
     );
+};
+
+export default Home;
+
+export async function getStaticProps() {
+    return {
+        props: {
+            heading: "Welcome",
+        },
+    };
 }
