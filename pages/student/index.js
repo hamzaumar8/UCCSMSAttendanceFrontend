@@ -155,7 +155,7 @@ export default StudentDashboard;
 
 export async function getServerSideProps() {
     const responseSemester = await axios.get("api/v1/semester");
-    const semester = responseSemester.data;
+    const semester = responseSemester.data.data;
     return {
         props: {
             semester,

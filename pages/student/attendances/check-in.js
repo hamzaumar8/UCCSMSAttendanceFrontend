@@ -11,7 +11,7 @@ import Button from "../../../components/Button";
 import { useAttendance } from "../../../src/hooks/attendance";
 import { useRecoilState } from "recoil";
 import {
-    attendanceLecStuState,
+    attendanceLecturerStudentState,
     confirmModalState,
 } from "../../../src/atoms/attendanceAtom";
 
@@ -23,9 +23,8 @@ const RepCheckIn = () => {
     const [checkInTime, setCheckInTime] = useState("");
     const [checkOutTime, setCheckOutTime] = useState("");
     const [moduleValue, setModuleValue] = useState("");
-    const [attendanceLecStu, setAttendanceLecStu] = useRecoilState(
-        attendanceLecStuState,
-    );
+    const [attendanceLecturerStudent, setAttendanceLecturerStudent] =
+        useRecoilState(attendanceLecturerStudentState);
     const [attendanceStatus, setAttendanceStatus] = useState("");
     const [lecturerValue, setLecturerValue] = useState("");
     const [confirmModal, setConfirmModal] = useRecoilState(confirmModalState);
@@ -93,7 +92,7 @@ const RepCheckIn = () => {
 
     const nextForm = event => {
         event.preventDefault();
-        setAttendanceLecStu(false);
+        setAttendanceLecturerStudent(false);
     };
 
     const submitForm = event => {
@@ -150,7 +149,7 @@ const RepCheckIn = () => {
                 <div className="flex justify-around items-center px-4 pt-1 sm:pt-4 bg-primary-accent border-b mb-5">
                     <button
                         className={`${
-                            attendanceLecStu
+                            attendanceLecturerStudent
                                 ? "after:bg-primary text-primary"
                                 : "after:bg-gray-200"
                         } tab text-gray-text`}>
@@ -158,7 +157,7 @@ const RepCheckIn = () => {
                     </button>
                     <button
                         className={`${
-                            !attendanceLecStu
+                            !attendanceLecturerStudent
                                 ? "after:bg-primary text-primary"
                                 : "after:bg-gray-200"
                         } tab text-gray-text`}>
@@ -168,12 +167,14 @@ const RepCheckIn = () => {
                 <div className="relative">
                     <AnimatePresence mode="wait">
                         <motion.div
-                            key={attendanceLecStu ? "Lecturer" : "Class"}
+                            key={
+                                attendanceLecturerStudent ? "Lecturer" : "Class"
+                            }
                             initial={{ y: 10, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             exit={{ y: -10, opacity: 0 }}
                             transition={{ duration: 0.2 }}>
-                            {attendanceLecStu ? (
+                            {attendanceLecturerStudent ? (
                                 <form className="space-y-4" onSubmit={nextForm}>
                                     <Errors className="mb-5" errors={errors} />
                                     <div className="p-4 sm:px-6 space-y-4">
@@ -509,7 +510,9 @@ const RepCheckIn = () => {
                                         <button
                                             type="button"
                                             onClick={() =>
-                                                setAttendanceLecStu(true)
+                                                setAttendanceLecturerStudent(
+                                                    true,
+                                                )
                                             }
                                             className="text-primary bg-primary-accent inline-block px-12 py-3 !rounded-full capitalize font-bold ">
                                             back

@@ -5,7 +5,7 @@ export const confirmModalState = atom({
     default: false,
 });
 
-export const attendanceLecStuState = atom({
-    key: "attendanceLecStuState",
+export const attendanceLecturerStudentState = atom({
+    key: "attendanceLecturerStudentState",
     default: true,
 });

@@ -38,6 +38,7 @@ export const useAuth = ({ middleware } = {}) => {
             .then(response => {
                 setLoading(false);
                 mutate();
+                console.log(response.data);
                 saveAuthToken(response.data.token);
             })
             .catch(error => {

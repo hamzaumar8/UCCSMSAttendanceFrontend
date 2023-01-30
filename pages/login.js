@@ -1,4 +1,3 @@
-import ApplicationLogo from "../components/ApplicationLogo";
 import AuthCard from "../components/AuthCard";
 import AuthSessionStatus from "../components/AuthSessionStatus";
 import Button from "../components/Button";
@@ -10,6 +9,7 @@ import Link from "next/link";
 import { useAuth } from "../src/hooks/auth";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import ApplicationLogo from "../components/ApplicationLogo";
 
 const Login = () => {
     const router = useRouter();

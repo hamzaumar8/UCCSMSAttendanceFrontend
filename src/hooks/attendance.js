@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { modalTypeState } from "../atoms/modalAtom";
 import { useRecoilState } from "recoil";
 import {
-    attendanceLecStuState,
+    attendanceLecturerStudentState,
     confirmModalState,
 } from "../atoms/attendanceAtom";
 
@@ -14,9 +14,8 @@ export const useAttendance = () => {
     const [loading, setLoading] = useState(false);
     const [modalType, setModalType] = useRecoilState(modalTypeState);
     const [confirmModal, setConfirmModal] = useRecoilState(confirmModalState);
-    const [attendanceLecStu, setAttendanceLecStu] = useRecoilState(
-        attendanceLecStuState,
-    );
+    const [attendanceLecturerStudent, setAttendanceLecturerStudent] =
+        useRecoilState(attendanceLecturerStudentState);
     const csrf = () => axios.get("/sanctum/csrf-cookie");
     const refreshData = () => {
         router.replace(router.asPath);
@@ -63,7 +62,7 @@ export const useAttendance = () => {
             .catch(error => {
                 setLoading(false);
                 setConfirmModal(false);
-                setAttendanceLecStu(true);
+                setAttendanceLecturerStudent(true);
                 if (error.response.status !== 422) {
                     console.log(error);
                 } else {

@@ -13,7 +13,7 @@ import Link from "next/link";
 const Dashboard = ({ semester, modules, lecturers, cordinators, students }) => {
     const [attendanceLecStu, setAttendanceLecStu] = useState(true);
     const modulesActive = modules.filter(itm => itm.status == "active");
-
+    console.log(semester);
     return (
         <AppLayout header="Dashboard">
             <HeadTitle title="Dashboard" />
@@ -119,7 +119,7 @@ const Dashboard = ({ semester, modules, lecturers, cordinators, students }) => {
                             <Card
                                 header={
                                     <h1 className="text-black-text font-extrabold capitalize">
-                                        Active Mdoules
+                                        Active Modules
                                     </h1>
                                 }
                                 button={
@@ -359,7 +359,7 @@ export async function getServerSideProps() {
     const modules = modulesResponse.data.data;
 
     const responseSemester = await axios.get("api/v1/semester");
-    const semester = responseSemester.data;
+    const semester = responseSemester.data.data;
     return {
         props: {
             modules,
