@@ -11,7 +11,6 @@ const Modules = ({ semester, modules, modulesBank }) => {
         itm => itm.status == "upcoming" || itm.status == "inactive",
     );
 
-    console.log(modulesBank);
     return (
         <AppLayout header="Modules">
             <HeadTitle title="Modules" />

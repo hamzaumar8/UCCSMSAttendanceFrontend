@@ -69,7 +69,8 @@ const Timetable = () => {
                 setPdfFile("");
             }
         } else {
-            console.log("please select a PDF");
+            setPdfError("please select a PDF");
+            setPdfFile("");
         }
     };
 
