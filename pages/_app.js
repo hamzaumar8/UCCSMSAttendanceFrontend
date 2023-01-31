@@ -3,6 +3,8 @@ import ProgressBar from "@badrap/bar-of-progress";
 import { Router } from "next/router";
 import { RecoilRoot } from "recoil";
 import "react-toastify/dist/ReactToastify.css";
+import "@react-pdf-viewer/core/lib/styles/index.css";
+import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 
 const progress = new ProgressBar({
     size: 3,

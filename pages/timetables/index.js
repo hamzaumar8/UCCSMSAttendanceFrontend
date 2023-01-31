@@ -13,16 +13,85 @@ import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
+import { SectionLoader } from "../../components/PageLoader";
+import ElementNotFound from "../../components/ElementNorFound";
+import Image from "next/image";
+import SemesterNotFound from "../../components/SemesterNotFound";
+import { useState } from "react";
+import Button from "../../components/Button";
+import Label from "../../components/Label";
+import Input from "../../components/Input";
+import Link from "next/link";
+import { useEffect } from "react";
 
-const Student = () => {
-    const { semester, loading } = useSemester();
+const Timetable = () => {
     const defaultLayoutPluginInstance = defaultLayoutPlugin();
-    console.log(semester);
+    const { semester, timetableSemester, loading } = useSemester();
+
+    const [pdfBlob, setPDFBlob] = useState(null);
+
+    useEffect(() => {
+        if (semester) {
+            fetch(
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/timetable/display/${semester?.id}`,
+            ).then(response => semester?.timetable && setPDFBlob(response.url));
+            // .then(blob => setPDFBlob(URL.createObjectURL(blob)));
+        }
+    }, [semester]);
+
+    const [errors, setErrors] = useState([]);
+    const [status, setStatus] = useState(null);
+
+    const [updateToggle, setUpdateToggle] = useState(false);
+
+    // pdf file onChange state
+    const [pdfFile, setPdfFile] = useState(null);
+    const [timetableFile, setTimetableFile] = useState(null);
+
+    // pdf file error state
+    const [pdfError, setPdfError] = useState("");
+
+    // handle file onChange event
+    const allowedFiles = ["application/pdf"];
+    const handleFile = e => {
+        let selectedFile = e.target.files[0];
+        console.log(selectedFile);
+        // console.log(selectedFile.type);
+        if (selectedFile) {
+            if (selectedFile && allowedFiles.includes(selectedFile.type)) {
+                setTimetableFile(selectedFile);
+                let reader = new FileReader();
+                reader.readAsDataURL(selectedFile);
+                reader.onloadend = e => {
+                    setPdfError("");
+                    setPdfFile(e.target.result);
+                };
+            } else {
+                setPdfError("Not a valid pdf: Please select only PDF");
+                setPdfFile("");
+            }
+        } else {
+            console.log("please select a PDF");
+        }
+    };
+
+    const onSubmit = event => {
+        event.preventDefault();
+        const formData = new FormData();
+        formData.append("_method", "PUT");
+        formData.append("timetable", timetableFile);
+        timetableSemester({
+            id: semester.id,
+            formData,
+            setErrors,
+            setStatus,
+        });
+    };
+
     return (
         <AppLayout header="Timetable">
             {/* Title */}
             <HeadTitle title="Timetable" />
-
             {/* Main Section */}
             <div className="space-y-5">
                 <div className="flex items-center justify-between relative">
@@ -33,56 +102,140 @@ const Student = () => {
                     </div>
                     <div className="space-x-4 flex items-center">
                         {semester?.timetable ? (
-                            <motion.button
-                                whileHover={{ scale: 1.01 }}
-                                whileTap={{ scale: 0.99 }}
-                                className="inline-flex items-center px-6 py-2 bg-primary text-white border border-transparent rounded-full font-semibold text-xs capitalize tracking-widest hover:bg-blue-700 active:bg-blue-900 focus:outline-none focus:border-blue-900 focus:ring ring-blue-300 disabled:opacity:25 transition ease-in-out duration-150">
-                                <PencilIcon className="w-4 h-4 mr-1" />
-                                update
-                            </motion.button>
+                            !updateToggle ? (
+                                <Button
+                                    onClick={() => {
+                                        setUpdateToggle(true);
+                                        setPdfFile(pdfBlob);
+                                    }}
+                                    className="!capitalize !rounded-full !px-8">
+                                    <PencilIcon className="w-4 h-4 mr-1" />
+                                    Edit
+                                </Button>
+                            ) : (
+                                <Button
+                                    onClick={() => {
+                                        setUpdateToggle(false);
+                                    }}
+                                    danger
+                                    className="!capitalize !rounded-full !px-8">
+                                    cancel
+                                </Button>
+                            )
                         ) : (
-                            <>
-                                <motion.button
-                                    whileHover={{ scale: 1.01 }}
-                                    whileTap={{ scale: 0.99 }}
-                                    className="inline-flex items-center px-6 py-2 bg-primary text-white border border-transparent rounded-full font-semibold text-xs capitalize tracking-widest hover:bg-blue-700 active:bg-blue-900 focus:outline-none focus:border-blue-900 focus:ring ring-blue-300 disabled:opacity:25 transition ease-in-out duration-150">
+                            !updateToggle && (
+                                <Button
+                                    className="!capitalize !rounded-full !px-8"
+                                    onClick={() => setUpdateToggle(true)}>
                                     <PlusIcon className="w-4 h-4 mr-1" />
                                     Add
-                                </motion.button>
-                            </>
+                                </Button>
+                            )
                         )}
                     </div>
                 </div>
+                <div className="relative rounded-xl sm:rounded-b-xl bg-white">
+                    {updateToggle ? (
+                        <div className="py-6 px-4 pt-1 sm:pt-4 space-y-5 block relative">
+                            {/* Upload PDF */}
+                            <form
+                                onSubmit={onSubmit}
+                                encType="multipart/form-data"
+                                className="border-b relative pb-4 space-y-5">
+                                <div className="">
+                                    <Label htmlFor="pdfFile">Upload PDF</Label>
+                                    <Input
+                                        id="pdfFile"
+                                        type="file"
+                                        className="block mt-1 w-full"
+                                        required
+                                        onChange={handleFile}
+                                    />
 
-                {semester === undefined ? (
-                    "loading ...."
-                ) : (
-                    <>
-                        {semester ? (
-                            <>
-                                {semester?.timetable ? (
-                                    <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.1.81/build/pdf.worker.js">
-                                        <div style={{ height: "750px" }}>
+                                    {/* we will display error message in case user select some file other than pdf */}
+                                    {pdfError && (
+                                        <span className="text-danger">
+                                            {pdfError}
+                                        </span>
+                                    )}
+                                </div>
+                                <div className="flex items-center justify-end ">
+                                    <Button
+                                        type="submit"
+                                        className="!capitalize !rounded-full !px-8"
+                                        loader={loading}>
+                                        {pdfBlob ? "Update" : "Submit"}
+                                    </Button>
+                                </div>
+                            </form>
+
+                            {/* View PDF */}
+                            <div className="space-y-5">
+                                <h5 className="text-lg font-bold">
+                                    Timetable PDF Preview
+                                </h5>
+                                <div className="bg-gray-200 flex justify-center items-center h-[800px] overflow-auto mb-3">
+                                    {/* render this if we have a pdf file */}
+                                    {pdfFile && (
+                                        <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.1.81/build/pdf.worker.min.js">
                                             <Viewer
-                                                fileUrl="/pdf-open-parameters.pdf"
+                                                fileUrl={pdfFile}
                                                 plugins={[
                                                     defaultLayoutPluginInstance,
-                                                ]}
+                                                ]}></Viewer>
+                                        </Worker>
+                                    )}
+
+                                    {/* render this if we have pdfFile state null   */}
+                                    {!pdfFile && <>No file is selected yet</>}
+                                </div>
+                            </div>
+                        </div>
+                    ) : semester === undefined ? (
+                        <SectionLoader />
+                    ) : semester ? (
+                        <>
+                            {semester?.timetable ? (
+                                <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.1.81/build/pdf.worker.js">
+                                    <div className="h-[800px]">
+                                        <Viewer
+                                            fileUrl={
+                                                pdfBlob ? pdfBlob : "/file.pdf"
+                                            }
+                                            plugins={[
+                                                defaultLayoutPluginInstance,
+                                            ]}
+                                        />
+                                    </div>
+                                </Worker>
+                            ) : (
+                                <ElementNotFound>
+                                    <div className="relative flex flex-col justify-center items-center h-[180px] w-full">
+                                        <div className="relative justify-center items-center h-[161px] w-[114px]">
+                                            <Image
+                                                src="/question.png"
+                                                fill
+                                                alt="NotFoundSVG"
                                             />
                                         </div>
-                                    </Worker>
-                                ) : (
-                                    ""
-                                )}
-                            </>
-                        ) : (
-                            ""
-                        )}
-                    </>
-                )}
+                                    </div>
+                                    <h2 className="text-xl sm:text-2xl text-primary font-bold">
+                                        No Timetable for the Semester.
+                                    </h2>
+                                    <p className="text-gray-text font-[500]">
+                                        Sorry! You don't have the semester
+                                        timetable set yet.
+                                    </p>
+                                </ElementNotFound>
+                            )}
+                        </>
+                    ) : (
+                        <SemesterNotFound />
+                    )}
+                </div>
             </div>
         </AppLayout>
     );
 };
 
-export default Student;
+export default Timetable;

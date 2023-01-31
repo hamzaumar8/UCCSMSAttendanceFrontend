@@ -108,11 +108,44 @@ export const useSemester = () => {
             });
     };
 
+    const timetableSemester = async ({
+        setErrors,
+        setStatus,
+        formData,
+        id,
+    }) => {
+        setLoading(true);
+        setErrors([]);
+        setStatus(null);
+
+        await csrf();
+        axios
+            .post(`/api/v1/timetable/semester/${id}`, formData)
+            .then(res => {
+                if (res.data.status === "success") {
+                    setLoading(false);
+                    refreshData();
+                    toast.success("Semester timetable update successfully!", {
+                        position: toast.POSITION.TOP_RIGHT,
+                    });
+                }
+            })
+            .catch(error => {
+                setLoading(false);
+                if (error.response.status !== 422) {
+                    console.log(error);
+                } else {
+                    setErrors(error.response.data.errors);
+                }
+            });
+    };
+
     return {
         loading,
         semester,
         addSemester,
         editSemester,
         promoteStudent,
+        timetableSemester,
     };
 };
