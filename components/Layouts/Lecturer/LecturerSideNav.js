@@ -3,6 +3,7 @@ import {
     ChartBarIcon,
     CloudArrowDownIcon,
     PencilSquareIcon,
+    TableCellsIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -55,6 +56,12 @@ const LecturerSideNav = () => {
                         }>
                         <CloudArrowDownIcon className="w-6 h-6" />
                         <span>Cordinating Modules</span>
+                    </NavLink>
+                    <NavLink
+                        href="/staff/timetable"
+                        active={router.pathname === "/staff/timetable"}>
+                        <TableCellsIcon className="w-6 h-6" />
+                        <span>Timetable</span>
                     </NavLink>
                 </div>
             </div>

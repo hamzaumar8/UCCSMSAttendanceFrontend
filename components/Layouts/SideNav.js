@@ -79,10 +79,10 @@ const SideNav = () => {
                         <span>Groups</span>
                     </NavLink>
                     <NavLink
-                        href="/timetables"
-                        active={router.pathname === "/timetables"}>
+                        href="/timetable"
+                        active={router.pathname === "/timetable"}>
                         <TableCellsIcon className="w-6 h-6" />
-                        <span>Timetables</span>
+                        <span>Timetable</span>
                     </NavLink>
                     <NavLink
                         href="/settings"

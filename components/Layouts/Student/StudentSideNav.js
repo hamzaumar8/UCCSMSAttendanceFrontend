@@ -75,7 +75,7 @@ const StudentSideNav = ({ user }) => {
                         href="/student/results"
                         active={router.pathname === "/student/results"}>
                         <CloudArrowDownIcon className="w-6 h-6" />
-                        <span>Statment of Results</span>
+                        <span>Statement of Results</span>
                     </NavLink>
                 </div>
             </div>

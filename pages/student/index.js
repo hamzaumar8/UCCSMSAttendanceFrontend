@@ -8,11 +8,17 @@ import useSWR from "swr";
 import { CalendarDaysIcon } from "@heroicons/react/24/outline";
 import format from "date-fns/format";
 import { SectionLoader } from "../../components/PageLoader";
+import { Viewer, Worker } from "@react-pdf-viewer/core";
+import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import ModulesList from "../../components/Student/Dashboard/ModulesList";
 import { useAuth } from "../../src/hooks/auth";
+import { useEffect, useState } from "react";
 
 const StudentDashboard = ({ semester }) => {
+    const defaultLayoutPluginInstance = defaultLayoutPlugin();
     const { user } = useAuth({ middleware: "auth" });
+    const [pdfBlob, setPDFBlob] = useState(null);
+
     const {
         data: studentModules,
         error,
@@ -22,8 +28,15 @@ const StudentDashboard = ({ semester }) => {
             .get("api/v1/student/modules/")
             .then(response => response.data.data),
     );
+
+    useEffect(() => {
+        fetch(
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/timetable/display/${semester?.id}`,
+        ).then(response => setPDFBlob(response.url));
+    }, []);
+
     return (
-        <StudentLayout header="Here's an overview of all attendaces">
+        <StudentLayout header="Student Dashboard">
             <HeadTitle title="Student Dashboard" />
 
             <div className="space-y-6 sm:space-y-8">
@@ -145,6 +158,59 @@ const StudentDashboard = ({ semester }) => {
                             <GuestSemesterNotFound />
                         )}
                     </div>
+                </div>
+                <div className="space-y-5 mt-10">
+                    <Card
+                        header={
+                            <h1 className="text-black font-extrabold text-xl">
+                                {" "}
+                                Semester Timetable
+                            </h1>
+                        }>
+                        {semester === undefined ? (
+                            <SectionLoader />
+                        ) : semester ? (
+                            <>
+                                {semester?.timetable ? (
+                                    <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.1.81/build/pdf.worker.js">
+                                        <div className="h-[800px]">
+                                            <Viewer
+                                                fileUrl={
+                                                    pdfBlob
+                                                        ? pdfBlob
+                                                        : "/file.pdf"
+                                                }
+                                                plugins={[
+                                                    defaultLayoutPluginInstance,
+                                                ]}
+                                            />
+                                        </div>
+                                    </Worker>
+                                ) : (
+                                    <ElementNotFound>
+                                        <div className="relative flex flex-col justify-center items-center h-[180px] w-full">
+                                            <div className="relative justify-center items-center h-[161px] w-[114px]">
+                                                <Image
+                                                    src="/question.png"
+                                                    fill
+                                                    alt="NotFoundSVG"
+                                                />
+                                            </div>
+                                        </div>
+                                        <h2 className="text-xl sm:text-2xl text-primary font-bold">
+                                            No Timetable for the Semester.
+                                        </h2>
+                                        <p className="text-gray-text font-[500]">
+                                            Sorry! You don't have the semester
+                                            timetable set yet.
+                                        </p>
+                                    </ElementNotFound>
+                                )}
+                            </>
+                        ) : (
+                            <SemesterNotFound />
+                        )}
+                    </Card>
                 </div>
             </div>
         </StudentLayout>

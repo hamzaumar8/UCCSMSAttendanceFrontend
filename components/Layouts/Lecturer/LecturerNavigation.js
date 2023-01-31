@@ -126,6 +126,23 @@ const LecturerNavigation = ({ user, header, breadcrumbs }) => {
                             active={router.pathname === "/staff/modules"}>
                             My modules
                         </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href="/staff/results"
+                            active={router.pathname === "/staff/results"}>
+                            Results
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href="/staff/cordinating_modules"
+                            active={
+                                router.pathname === "/staff/cordinating_modules"
+                            }>
+                            Cordinating Modules
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href="/staff/timetable"
+                            active={router.pathname === "/staff/timetable"}>
+                            Timetable
+                        </ResponsiveNavLink>
                     </div>
 
                     {/* Responsive Settings Options */}

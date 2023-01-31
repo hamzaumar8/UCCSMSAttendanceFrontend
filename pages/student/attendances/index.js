@@ -34,7 +34,7 @@ const RepAttendance = () => {
     );
 
     return (
-        <CourseRepLayout header="Here's an overview of all attendaces">
+        <CourseRepLayout header="Here's an overview of all attendances">
             <HeadTitle title="Lecturer Dashboard" />
 
             <div className="bg-[#E5E5E5] relative flex items-center justify-around py-4 before:absolute before:w-full before:h-4 before:bg-white before:bottom-0 before:rounded-t-3xl pb-8 sm:before:h-0">

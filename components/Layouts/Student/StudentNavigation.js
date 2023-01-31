@@ -117,14 +117,44 @@ const StudentNavigation = ({ user, header, breadcrumbs }) => {
                 <div className="block sm:hidden">
                     <div className="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink
-                            href="/staff"
-                            active={router.pathname === "/staff"}>
-                            Attendance
+                            href="/student"
+                            active={router.pathname === "/student"}>
+                            Dashboard
+                        </ResponsiveNavLink>
+                        {user.role === "REP" && (
+                            <>
+                                <ResponsiveNavLink
+                                    href="/student/attendances"
+                                    active={
+                                        router.pathname ===
+                                        "/student/attendances"
+                                    }>
+                                    Attendance
+                                </ResponsiveNavLink>
+                                <ResponsiveNavLink
+                                    href="/student/reps_modules"
+                                    active={
+                                        router.pathname ===
+                                        "/student/reps_modules"
+                                    }>
+                                    Rep's Modules
+                                </ResponsiveNavLink>
+                            </>
+                        )}
+                        <ResponsiveNavLink
+                            href="/student/modules"
+                            active={router.pathname === "/student/modules"}>
+                            Registered Modules
                         </ResponsiveNavLink>
                         <ResponsiveNavLink
-                            href="/staff/modules"
-                            active={router.pathname === "/staff/modules"}>
-                            My modules
+                            href="/student/groups"
+                            active={router.pathname === "/student/groups"}>
+                            Groups
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href="/student/results"
+                            active={router.pathname === "/student/results"}>
+                            Statment of Results
                         </ResponsiveNavLink>
                     </div>
 

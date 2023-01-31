@@ -31,11 +31,10 @@ const Timetable = () => {
     const [pdfBlob, setPDFBlob] = useState(null);
 
     useEffect(() => {
-        if (semester) {
+        if (semester?.timetable) {
             fetch(
                 `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/timetable/display/${semester?.id}`,
-            ).then(response => semester?.timetable && setPDFBlob(response.url));
-            // .then(blob => setPDFBlob(URL.createObjectURL(blob)));
+            ).then(response => setPDFBlob(response.url));
         }
     }, [semester]);
 
@@ -56,7 +55,6 @@ const Timetable = () => {
     const handleFile = e => {
         let selectedFile = e.target.files[0];
         console.log(selectedFile);
-        // console.log(selectedFile.type);
         if (selectedFile) {
             if (selectedFile && allowedFiles.includes(selectedFile.type)) {
                 setTimetableFile(selectedFile);
