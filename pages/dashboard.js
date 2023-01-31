@@ -2,18 +2,16 @@ import AppLayout from "../components/Layouts/AppLayout";
 import axios from "../src/lib/axios";
 import Card from "../components/Card";
 import HeadTitle from "../components/HeadTitle";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { CalendarDaysIcon } from "@heroicons/react/24/outline";
 import SemesterNotFound from "../components/SemesterNotFound";
-import { useSemester } from "../src/hooks/semester";
 import format from "date-fns/format";
 import Link from "next/link";
 
 const Dashboard = ({ semester, modules, lecturers, cordinators, students }) => {
     const [attendanceLecStu, setAttendanceLecStu] = useState(true);
     const modulesActive = modules.filter(itm => itm.status == "active");
-    console.log(semester);
     return (
         <AppLayout header="Dashboard">
             <HeadTitle title="Dashboard" />

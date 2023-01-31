@@ -23,6 +23,7 @@ import Label from "../../components/Label";
 import Input from "../../components/Input";
 import Link from "next/link";
 import { useEffect } from "react";
+import InputError from "../../components/InputError";
 
 const Timetable = () => {
     const defaultLayoutPluginInstance = defaultLayoutPlugin();
@@ -54,7 +55,6 @@ const Timetable = () => {
     const allowedFiles = ["application/pdf"];
     const handleFile = e => {
         let selectedFile = e.target.files[0];
-        console.log(selectedFile);
         if (selectedFile) {
             if (selectedFile && allowedFiles.includes(selectedFile.type)) {
                 setTimetableFile(selectedFile);
@@ -156,6 +156,10 @@ const Timetable = () => {
                                             {pdfError}
                                         </span>
                                     )}
+                                    <InputError
+                                        messages={errors.timetable}
+                                        className="mt-1"
+                                    />
                                 </div>
                                 <div className="flex items-center justify-end ">
                                     <Button

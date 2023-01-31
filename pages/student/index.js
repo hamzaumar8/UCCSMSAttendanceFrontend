@@ -2,7 +2,9 @@ import HeadTitle from "../../components/HeadTitle";
 import StudentLayout from "../../components/Layouts/StudentLayout";
 import axios from "../../src/lib/axios";
 import Card from "../../components/Card";
-import { GuestSemesterNotFound } from "../../components/SemesterNotFound";
+import SemesterNotFound, {
+    GuestSemesterNotFound,
+} from "../../components/SemesterNotFound";
 import Link from "next/link";
 import useSWR from "swr";
 import { CalendarDaysIcon } from "@heroicons/react/24/outline";
@@ -13,6 +15,7 @@ import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import ModulesList from "../../components/Student/Dashboard/ModulesList";
 import { useAuth } from "../../src/hooks/auth";
 import { useEffect, useState } from "react";
+import ElementNotFound from "../../components/ElementNorFound";
 
 const StudentDashboard = ({ semester }) => {
     const defaultLayoutPluginInstance = defaultLayoutPlugin();
