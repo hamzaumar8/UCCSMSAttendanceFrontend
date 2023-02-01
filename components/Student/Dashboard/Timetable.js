@@ -1,6 +1,8 @@
+import { Viewer, Worker } from "@react-pdf-viewer/core";
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import axios from "../../../src/lib/axios";
 import Card from "../../Card";
 import ElementNotFound from "../../ElementNorFound";
 import { SectionLoader } from "../../PageLoader";
