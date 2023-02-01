@@ -62,6 +62,13 @@ const ForgotPassword = () => {
                             Email Password Reset Link
                         </Button>
                     </div>
+                    <div className="text-center my-5">
+                        <Link
+                            href="/login"
+                            className="underline text-sm text-primary font-bold hover:text-blue-800">
+                            Remembered your password? Login.
+                        </Link>
+                    </div>
                 </form>
             </AuthCard>
         </GuestLayout>

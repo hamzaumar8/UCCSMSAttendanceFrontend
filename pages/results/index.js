@@ -27,7 +27,7 @@ const Results = ({ results }) => {
             {/* Title */}
             <HeadTitle title="Results" />
 
-            {/* Main Sction */}
+            {/* Main Section */}
             <div className="space-y-5">
                 <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg transition duration-500 ease-in-out">
                     {/* Header */}

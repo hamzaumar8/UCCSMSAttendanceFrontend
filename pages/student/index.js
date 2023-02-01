@@ -2,28 +2,21 @@ import HeadTitle from "../../components/HeadTitle";
 import StudentLayout from "../../components/Layouts/StudentLayout";
 import axios from "../../src/lib/axios";
 import Card from "../../components/Card";
-import SemesterNotFound, {
-    GuestSemesterNotFound,
-} from "../../components/SemesterNotFound";
+import { GuestSemesterNotFound } from "../../components/SemesterNotFound";
 import Link from "next/link";
 import useSWR from "swr";
 import { CalendarDaysIcon } from "@heroicons/react/24/outline";
 import format from "date-fns/format";
 import { SectionLoader } from "../../components/PageLoader";
-import { Viewer, Worker } from "@react-pdf-viewer/core";
-import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
-import ModulesList from "../../components/Student/Dashboard/ModulesList";
 import { useAuth } from "../../src/hooks/auth";
-import { useEffect, useState } from "react";
-import ElementNotFound from "../../components/ElementNorFound";
+import StudentTimetable from "../../components/Student/Dashboard/Timetable";
+import StudentModulesList from "../../components/Student/Dashboard/StudentModulesList";
 
 const StudentDashboard = ({ semester }) => {
-    const defaultLayoutPluginInstance = defaultLayoutPlugin();
     const { user } = useAuth({ middleware: "auth" });
-    const [pdfBlob, setPDFBlob] = useState(null);
 
     const {
-        data: studentModules,
+        data: registeredModules,
         error,
         mutate,
     } = useSWR("api/v1/student/modules/", () =>
@@ -31,12 +24,6 @@ const StudentDashboard = ({ semester }) => {
             .get("api/v1/student/modules/")
             .then(response => response.data.data),
     );
-
-    useEffect(() => {
-        fetch(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/timetable/display/${semester?.id}`,
-        ).then(response => setPDFBlob(response.url));
-    }, []);
 
     return (
         <StudentLayout header="Student Dashboard">
@@ -98,7 +85,7 @@ const StudentDashboard = ({ semester }) => {
                                         </div>
                                         <div className="bg-white text-xs font-semibold block px-1 text-center rounded-lg w-[50px] py-0.5 mr-6">
                                             <span>
-                                                {studentModules?.length}
+                                                {registeredModules?.length}
                                             </span>
                                         </div>
                                     </Link>
@@ -107,7 +94,7 @@ const StudentDashboard = ({ semester }) => {
                                         className="flex items-center justify-between bg-gray-100 p-2 rounded-md">
                                         <div className="flex space-x-4 items-center">
                                             <div className="bg-blue-700 h-2 w-2 rounded-full"></div>
-                                            <h3>Attendance Percenage</h3>
+                                            <h3>Attendance Percentage</h3>
                                         </div>
                                         <div className="bg-white text-xs font-semibold block px-1 text-center rounded-lg w-[50px] py-0.5 mr-6">
                                             <span>
@@ -130,11 +117,11 @@ const StudentDashboard = ({ semester }) => {
                             <Card
                                 header={
                                     <h1 className="text-black-text font-extrabold capitalize">
-                                        Registered Mdoules
+                                        Registered Modules
                                     </h1>
                                 }
                                 button={
-                                    studentModules?.length > 8 && (
+                                    registeredModules?.length > 8 && (
                                         <Link
                                             href={"/modules"}
                                             className="bg-primary-accent text-primary px-6 py-2 rounded-full text-xs font-bold">
@@ -143,17 +130,19 @@ const StudentDashboard = ({ semester }) => {
                                     )
                                 }>
                                 <div className="space-y-3 overflow-x-auto pb-2 sm:pb-0">
-                                    {studentModules === undefined ? (
+                                    {registeredModules === undefined ? (
                                         <SectionLoader />
-                                    ) : (
-                                        studentModules
+                                    ) : registeredModules?.length > 0 ? (
+                                        registeredModules
                                             ?.slice(0, 8)
                                             .map(module => (
-                                                <ModulesList
+                                                <StudentModulesList
                                                     key={module.id}
                                                     module={module}
                                                 />
                                             ))
+                                    ) : (
+                                        <p>No Registered Module Available</p>
                                     )}
                                 </div>
                             </Card>
@@ -162,59 +151,7 @@ const StudentDashboard = ({ semester }) => {
                         )}
                     </div>
                 </div>
-                <div className="space-y-5 mt-10">
-                    <Card
-                        header={
-                            <h1 className="text-black font-extrabold text-xl">
-                                {" "}
-                                Semester Timetable
-                            </h1>
-                        }>
-                        {semester === undefined ? (
-                            <SectionLoader />
-                        ) : semester ? (
-                            <>
-                                {semester?.timetable ? (
-                                    <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.1.81/build/pdf.worker.js">
-                                        <div className="h-[800px]">
-                                            <Viewer
-                                                fileUrl={
-                                                    pdfBlob
-                                                        ? pdfBlob
-                                                        : "/file.pdf"
-                                                }
-                                                plugins={[
-                                                    defaultLayoutPluginInstance,
-                                                ]}
-                                            />
-                                        </div>
-                                    </Worker>
-                                ) : (
-                                    <ElementNotFound>
-                                        <div className="relative flex flex-col justify-center items-center h-[180px] w-full">
-                                            <div className="relative justify-center items-center h-[161px] w-[114px]">
-                                                <Image
-                                                    src="/question.png"
-                                                    fill
-                                                    alt="NotFoundSVG"
-                                                />
-                                            </div>
-                                        </div>
-                                        <h2 className="text-xl sm:text-2xl text-primary font-bold">
-                                            No Timetable for the Semester.
-                                        </h2>
-                                        <p className="text-gray-text font-[500]">
-                                            Sorry! You don't have the semester
-                                            timetable set yet.
-                                        </p>
-                                    </ElementNotFound>
-                                )}
-                            </>
-                        ) : (
-                            <SemesterNotFound />
-                        )}
-                    </Card>
-                </div>
+                <StudentTimetable semester={semester} />
             </div>
         </StudentLayout>
     );

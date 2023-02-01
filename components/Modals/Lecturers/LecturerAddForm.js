@@ -4,7 +4,6 @@ import Button from "../../Button";
 import Input from "../../Input";
 import InputError from "../../InputError";
 import Label from "../../Label";
-import Select from "../../Select";
 
 const LecturerAddForm = ({ onClick }) => {
     const { addLecturer, loading } = useLecturer();

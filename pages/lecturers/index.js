@@ -54,7 +54,7 @@ const Lecturer = ({ lecturers, lecturersSummary }) => {
             {/* Title */}
             <HeadTitle title="Lecturers" />
 
-            {/* Main Sction */}
+            {/* Main Section */}
             <div className="space-y-5">
                 <div className="flex items-center justify-between">
                     <div className="flex space-x-4 items-center">

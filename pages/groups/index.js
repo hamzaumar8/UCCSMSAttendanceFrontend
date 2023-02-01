@@ -24,7 +24,7 @@ const Groups = ({ groups }) => {
             {/* Title */}
             <HeadTitle title="Groups" />
 
-            {/* Main Sction */}
+            {/* Main Section */}
             <div className="space-y-5">
                 <div className="flex items-center justify-between relative">
                     <div className="flex space-x-4 items-center">

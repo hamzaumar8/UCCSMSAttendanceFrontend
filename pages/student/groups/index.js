@@ -20,15 +20,13 @@ const StudentResults = () => {
             {/* Title */}
             <HeadTitle title="Groups" />
 
-            {/* Main Sction */}
+            {/* Main Section */}
             <div className="space-y-8 sm:mt-10">
                 <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg transition duration-500 ease-in-out">
                     {/* Header */}
                     <div className="p-5 pb-2 block sm:flex  items-center justify-between relative">
                         <div className="flex items-center justify-center space-x-8">
-                            <h1 className="text-xl font-extrabold ">
-                                Registered Modules
-                            </h1>
+                            <h1 className="text-xl font-extrabold ">Groups</h1>
                         </div>
                         <SemesterTag />
                         <div></div>

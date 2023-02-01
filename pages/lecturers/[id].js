@@ -17,7 +17,7 @@ const Lecturer = ({ lecturer, cordinatingModule }) => {
                 </div>
             }>
             <HeadTitle title="Lecturers" />
-            {/* Main Sction */}
+            {/* Main Section */}
             <div className="relative space-y-8">
                 {/* My Module */}
                 <div className="bg-white overflow-hidden sm:rounded-md transition duration-500 ease-in-out shadow-sm">

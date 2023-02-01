@@ -19,7 +19,7 @@ const StudentResults = () => {
             {/* Title */}
             <HeadTitle title="Results" />
 
-            {/* Main Sction */}
+            {/* Main Section */}
             <div className="space-y-8 sm:mt-10">
                 {studentResults === undefined ? (
                     <SectionLoader />

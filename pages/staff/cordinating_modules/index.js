@@ -21,7 +21,7 @@ const StaffCordinatingModules = () => {
         <LecturerLayout header="Cordinating Modules">
             <HeadTitle title="Lecturer Modules" />
 
-            {/* Main Sction */}
+            {/* Main Section */}
             <div className="space-y-8 sm:mt-10">
                 <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg transition duration-500 ease-in-out">
                     {/* Header */}

@@ -33,7 +33,7 @@ const Student = ({ students, levels, modules }) => {
             {/* Title */}
             <HeadTitle title="Students" />
 
-            {/* Main Sction */}
+            {/* Main Section */}
             <div className="space-y-5">
                 <div className="flex items-center justify-between relative">
                     <div className="flex space-x-4 items-center">
@@ -148,9 +148,6 @@ const Student = ({ students, levels, modules }) => {
                                     Name
                                 </th>
                                 <th className="capitalize font-bold px-2 pr-4 py-3 text-center text-sm text-primary tracking-wider whitespace-nowrap">
-                                    Group Number
-                                </th>
-                                <th className="capitalize font-bold px-2 pr-4 py-3 text-center text-sm text-primary tracking-wider whitespace-nowrap">
                                     Present(%)
                                 </th>
                                 <th className="capitalize font-bold px-2 pr-4 py-3 text-center text-sm text-primary tracking-wider whitespace-nowrap">
@@ -191,13 +188,6 @@ const Student = ({ students, levels, modules }) => {
                                                   <span>
                                                       <div>
                                                           {student.full_name}
-                                                      </div>
-                                                  </span>
-                                              </td>
-                                              <td className="capitalize p-3 whitespace-nowrap border-b text-center">
-                                                  <span>
-                                                      <div>
-                                                          {student.group_no}
                                                       </div>
                                                   </span>
                                               </td>
