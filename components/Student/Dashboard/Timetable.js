@@ -1,26 +1,27 @@
 import { Viewer, Worker } from "@react-pdf-viewer/core";
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import axios from "../../../src/lib/axios";
+import { useEffect } from "react";
+import { useRecoilState } from "recoil";
+import { pdfBlobState } from "../../../src/atoms/semesterAtom";
 import Card from "../../Card";
 import ElementNotFound from "../../ElementNorFound";
-import { SectionLoader } from "../../PageLoader";
 
 const StudentTimetable = ({ semester }) => {
+    const { id, timetable } = semester;
     const defaultLayoutPluginInstance = defaultLayoutPlugin();
-    const [pdfBlob, setPDFBlob] = useState(null);
+    const [pdfBlob, setPDFBlob] = useRecoilState(pdfBlobState);
 
     useEffect(() => {
         const fetchPdf = async id => {
-            const res = await axios.get(`/api/v1/timetable/display/${id}`);
-            res.status === 200 && setPDFBlob(res.url);
+            fetch(
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/timetable/display/${id}`,
+            ).then(response => setPDFBlob(response.url));
         };
-        if (semester.timetable) {
-            fetchPdf(semester.id);
+        if (timetable) {
+            fetchPdf(id);
         }
     }, []);
-
     return (
         <div className="space-y-5 mt-10">
             <Card
@@ -29,19 +30,21 @@ const StudentTimetable = ({ semester }) => {
                         Semester Timetable
                     </h1>
                 }>
-                {semester === undefined ? (
-                    <SectionLoader />
-                ) : semester ? (
+                {semester ? (
                     <>
-                        {semester?.timetable ? (
+                        {timetable ? (
                             <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.1.81/build/pdf.worker.js">
                                 <div className="h-[800px]">
-                                    <Viewer
-                                        fileUrl={
-                                            pdfBlob ? pdfBlob : "/file.pdf"
-                                        }
-                                        plugins={[defaultLayoutPluginInstance]}
-                                    />
+                                    {pdfBlob ? (
+                                        <Viewer
+                                            fileUrl={pdfBlob}
+                                            plugins={[
+                                                defaultLayoutPluginInstance,
+                                            ]}
+                                        />
+                                    ) : (
+                                        "file error"
+                                    )}
                                 </div>
                             </Worker>
                         ) : (

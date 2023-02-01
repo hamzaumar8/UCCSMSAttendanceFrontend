@@ -37,7 +37,7 @@ const StudentDashboard = ({ semester }) => {
                             header={
                                 semester && (
                                     <h1 className="text-black-text  uppercase text-xl py-2 font-bold">
-                                        {semester?.semester} semester
+                                        {semester.semester} semester
                                     </h1>
                                 )
                             }
@@ -49,22 +49,20 @@ const StudentDashboard = ({ semester }) => {
                                             <div className="font-bold uppercase">
                                                 {format(
                                                     new Date(
-                                                        semester?.start_date,
+                                                        semester.start_date,
                                                     ),
                                                     "dd MMM",
                                                 )}
                                                 {" - "}
                                                 {format(
-                                                    new Date(
-                                                        semester?.end_date,
-                                                    ),
+                                                    new Date(semester.end_date),
                                                     "dd MMM",
                                                 )}
                                             </div>
                                         </div>
                                         <div className="px-3 pt-1 text-gray-text">
                                             <div>
-                                                {semester?.academic_year}{" "}
+                                                {semester.academic_year}{" "}
                                                 Academic Year
                                             </div>
                                         </div>
@@ -123,7 +121,7 @@ const StudentDashboard = ({ semester }) => {
                                 button={
                                     registeredModules?.length > 8 && (
                                         <Link
-                                            href={"/modules"}
+                                            href={"/student/modules"}
                                             className="bg-primary-accent text-primary px-6 py-2 rounded-full text-xs font-bold">
                                             View All
                                         </Link>

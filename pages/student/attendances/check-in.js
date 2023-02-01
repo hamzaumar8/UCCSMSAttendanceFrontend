@@ -257,9 +257,15 @@ const RepCheckIn = () => {
                                                         moduleValue &&
                                                         "!border-primary"
                                                     } w-full border-2 border-gray-text text-primary font-bold capitalize p-4`}>
-                                                    <option value=""></option>
+                                                    <option value="" disabled>
+                                                        {courseRepModules?.length >
+                                                        0
+                                                            ? "Choose an option"
+                                                            : "No module"}
+                                                    </option>
+
                                                     {courseRepModules?.length >
-                                                    0 ? (
+                                                        0 &&
                                                         courseRepModules
                                                             ?.filter(
                                                                 item =>
@@ -278,25 +284,12 @@ const RepCheckIn = () => {
                                                                         value={
                                                                             module.id
                                                                         }>
-                                                                        {
-                                                                            module
-                                                                                .module
-                                                                                .code
-                                                                        }{" "}
-                                                                        -{" "}
-                                                                        {
-                                                                            module
-                                                                                .module
-                                                                                .title
-                                                                        }
+                                                                        {`${module.module.code} 
+                                                                        - 
+                                                                        ${module.module.title}`}
                                                                     </option>
                                                                 ),
-                                                            )
-                                                    ) : (
-                                                        <option>
-                                                            No module
-                                                        </option>
-                                                    )}
+                                                            )}
                                                 </select>
                                             </div>
                                         </div>
@@ -321,7 +314,11 @@ const RepCheckIn = () => {
                                                             lecturerValue &&
                                                             "!border-primary"
                                                         } w-full border-2 border-gray-text text-primary font-bold capitalize p-4`}>
-                                                        <option></option>
+                                                        <option
+                                                            value=""
+                                                            disabled>
+                                                            Choose an option
+                                                        </option>
                                                         {getLecturers().map(
                                                             (lect, index) => (
                                                                 <option

@@ -1,43 +1,26 @@
 import HeadTitle from "../../components/HeadTitle";
 import AppLayout from "../../components/Layouts/AppLayout";
-import { ChevronDownIcon, PlusIcon } from "@heroicons/react/24/solid";
-import { motion } from "framer-motion";
-import {
-    ArrowUpTrayIcon,
-    PencilIcon,
-    PencilSquareIcon,
-} from "@heroicons/react/24/outline";
+import { PlusIcon } from "@heroicons/react/24/solid";
+import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import { useSemester } from "../../src/hooks/semester";
 import { Viewer, Worker } from "@react-pdf-viewer/core";
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
-
-import "@react-pdf-viewer/core/lib/styles/index.css";
-import "@react-pdf-viewer/default-layout/lib/styles/index.css";
-import { SectionLoader } from "../../components/PageLoader";
-import ElementNotFound from "../../components/ElementNorFound";
-import Image from "next/image";
-import SemesterNotFound from "../../components/SemesterNotFound";
 import { useState } from "react";
 import Button from "../../components/Button";
 import Label from "../../components/Label";
 import Input from "../../components/Input";
-import Link from "next/link";
 import { useEffect } from "react";
 import InputError from "../../components/InputError";
+import StudentTimetable from "../../components/Student/Dashboard/Timetable";
+import axios from "../../src/lib/axios";
+import { useRecoilState } from "recoil";
+import { pdfBlobState } from "../../src/atoms/semesterAtom";
 
-const Timetable = () => {
+const Timetable = ({ semester }) => {
     const defaultLayoutPluginInstance = defaultLayoutPlugin();
-    const { semester, timetableSemester, loading } = useSemester();
+    const { timetableSemester, loading } = useSemester();
 
-    const [pdfBlob, setPDFBlob] = useState(null);
-
-    useEffect(() => {
-        if (semester?.timetable) {
-            fetch(
-                `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/timetable/display/${semester?.id}`,
-            ).then(response => setPDFBlob(response.url));
-        }
-    }, [semester]);
+    const [pdfBlob, setPDFBlob] = useRecoilState(pdfBlobState);
 
     const [errors, setErrors] = useState([]);
     const [status, setStatus] = useState(null);
@@ -108,7 +91,7 @@ const Timetable = () => {
                                         setPdfFile(pdfBlob);
                                     }}
                                     className="!capitalize !rounded-full !px-8">
-                                    <PencilIcon className="w-4 h-4 mr-1" />
+                                    <PencilSquareIcon className="w-4 h-4 mr-1" />
                                     Edit
                                 </Button>
                             ) : (
@@ -194,46 +177,8 @@ const Timetable = () => {
                                 </div>
                             </div>
                         </div>
-                    ) : semester === undefined ? (
-                        <SectionLoader />
-                    ) : semester ? (
-                        <>
-                            {semester?.timetable ? (
-                                <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.1.81/build/pdf.worker.js">
-                                    <div className="h-[800px]">
-                                        <Viewer
-                                            fileUrl={
-                                                pdfBlob ? pdfBlob : "/file.pdf"
-                                            }
-                                            plugins={[
-                                                defaultLayoutPluginInstance,
-                                            ]}
-                                        />
-                                    </div>
-                                </Worker>
-                            ) : (
-                                <ElementNotFound>
-                                    <div className="relative flex flex-col justify-center items-center h-[180px] w-full">
-                                        <div className="relative justify-center items-center h-[161px] w-[114px]">
-                                            <Image
-                                                src="/question.png"
-                                                fill
-                                                alt="NotFoundSVG"
-                                            />
-                                        </div>
-                                    </div>
-                                    <h2 className="text-xl sm:text-2xl text-primary font-bold">
-                                        No Timetable for the Semester.
-                                    </h2>
-                                    <p className="text-gray-text font-[500]">
-                                        Sorry! You don't have the semester
-                                        timetable set yet.
-                                    </p>
-                                </ElementNotFound>
-                            )}
-                        </>
                     ) : (
-                        <SemesterNotFound />
+                        <StudentTimetable semester={semester} />
                     )}
                 </div>
             </div>
@@ -242,3 +187,13 @@ const Timetable = () => {
 };
 
 export default Timetable;
+
+export async function getServerSideProps() {
+    const responseSemester = await axios.get("api/v1/semester");
+    const semester = responseSemester.data.data;
+    return {
+        props: {
+            semester,
+        },
+    };
+}

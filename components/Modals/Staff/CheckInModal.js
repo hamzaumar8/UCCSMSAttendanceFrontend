@@ -89,8 +89,12 @@ const CheckInModal = ({ onClick = "" }) => {
                             }
                             required
                             className="w-full text-black-text font-bold capitalize p-4 border-primary-accent">
-                            <option></option>
-                            {lecturer?.modules.length > 0 ? (
+                            <option value="" disabled>
+                                {lecturer?.modules.length > 0
+                                    ? "Choose an option"
+                                    : "No module"}
+                            </option>
+                            {lecturer?.modules.length > 0 &&
                                 lecturer?.modules
                                     .filter(item => item.status === "active")
                                     .map((module, index) => (
@@ -98,10 +102,7 @@ const CheckInModal = ({ onClick = "" }) => {
                                             {module.module.code} -{" "}
                                             {module.module.title}
                                         </option>
-                                    ))
-                            ) : (
-                                <option>No module</option>
-                            )}
+                                    ))}
                         </select>
                     </div>
                 </div>
