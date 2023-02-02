@@ -16,7 +16,9 @@ const StudentTimetable = ({ semester }) => {
         const fetchPdf = async id => {
             fetch(
                 `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/timetable/display/${id}`,
-            ).then(response => setPDFBlob(response.url));
+            ).then(
+                response => response.status === 200 && setPDFBlob(response.url),
+            );
         };
         if (timetable) {
             fetchPdf(id);
@@ -33,20 +35,19 @@ const StudentTimetable = ({ semester }) => {
                 {semester ? (
                     <>
                         {timetable ? (
-                            <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.1.81/build/pdf.worker.js">
-                                <div className="h-[800px]">
-                                    {pdfBlob ? (
+                            <div className="h-[800px] w-full">
+                                {pdfBlob && (
+                                    <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.1.81/build/pdf.worker.js">
                                         <Viewer
                                             fileUrl={pdfBlob}
                                             plugins={[
                                                 defaultLayoutPluginInstance,
                                             ]}
                                         />
-                                    ) : (
-                                        "file error"
-                                    )}
-                                </div>
-                            </Worker>
+                                    </Worker>
+                                )}
+                                {!pdfBlob && <>file error or corrupted</>}
+                            </div>
                         ) : (
                             <ElementNotFound>
                                 <div className="relative flex flex-col justify-center items-center h-[180px] w-full">

@@ -1,6 +1,7 @@
 import StaffCordinatingModuleCard from "../CordinatingModules/StaffCordinatingModuleCard";
 
 const StaffCordinatingModules = ({ cordinatingModules }) => {
+    console.log(cordinatingModules);
     return (
         <div className="grid grid-cols-3 p-6 gap-8">
             {cordinatingModules.length > 0 ? (

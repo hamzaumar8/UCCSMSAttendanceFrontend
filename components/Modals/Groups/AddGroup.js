@@ -22,7 +22,7 @@ const AddGroup = ({ onClick }) => {
     const getCapcity = () => {
         if (level) {
             const data = levelData.filter(item => item.id === level);
-            return data[0].students_count;
+            return data[0]?.students_count;
         } else {
             return 0;
         }

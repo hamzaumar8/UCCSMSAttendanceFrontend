@@ -10,9 +10,9 @@ const StudentAllResults = ({ studentResults }) => {
                     className="mb-10 bg-white overflow-hidden shadow-sm sm:rounded-lg transition duration-500 ease-in-out">
                     <div className="px-5 py-4">
                         <h1 className="text-xl capitalize font-extrabold space-x-1">
-                            <span>{result[0].semester.academic_year}</span>
+                            <span>{result[0]?.semester.academic_year}</span>
                             <span>Academic Year,</span>
-                            <span>{result[0].semester.semester} semester</span>
+                            <span>{result[0]?.semester.semester} semester</span>
                         </h1>
                     </div>
                     <div className="overflow-x-auto rounded-t-3xl bg-white overflow-y-auto relative">

@@ -70,7 +70,7 @@ const RepCheckIn = () => {
             const data = courseRepModules?.filter(
                 item => item.id === Number(moduleValue),
             );
-            return data[0].lecturers;
+            return data[0]?.lecturers;
         }
         return [];
     };
@@ -79,14 +79,14 @@ const RepCheckIn = () => {
             const data = courseRepModules?.filter(
                 item => item.id === Number(moduleValue),
             );
-            return data[0].students;
+            return data[0]?.students;
         }
         return [];
     };
 
     useEffect(() => {
         getLecturers().length === 1 &&
-            setLecturerValue(getLecturers()[0].id.toString());
+            setLecturerValue(getLecturers()[0]?.id.toString());
         getStudents().length > 0 && setCheckboxes(getStudents());
     }, [getLecturers, getStudents]);
 
@@ -541,7 +541,7 @@ const RepCheckIn = () => {
                                         courseRepModules?.filter(
                                             item =>
                                                 item.id === Number(moduleValue),
-                                        )[0].module.code
+                                        )[0]?.module.code
                                     }
                                 </h4>
                                 <div className="space-x-1 text-xs py-1 px-3 rounded-full bg-primary-accent text-black-text font-bold">

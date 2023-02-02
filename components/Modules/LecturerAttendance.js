@@ -66,7 +66,7 @@ const LecturerAttendance = ({ module }) => {
                                     </td>
                                     <td className="capitalize p-3 whitespace-nowrap border-b">
                                         <span>
-                                            <div>{lecturers[0].full_name}</div>
+                                            <div>{lecturers[0]?.full_name}</div>
                                         </span>
                                     </td>
                                     <td className="capitalize p-3 whitespace-nowrap border-b">

@@ -127,10 +127,10 @@ const ModuleCard = ({ module }) => {
                                 : "bg-white border-primary"
                         } border-2  rounded-full overflow-hidden`}>
                         <Image
-                            src={module?.lecturers[0].picture}
+                            src={module?.lecturers[0]?.picture}
                             width={100}
                             height={100}
-                            alt={module?.lecturers[0].surname}
+                            alt={module?.lecturers[0]?.surname}
                             className="h-full w-full"
                         />
                     </div>

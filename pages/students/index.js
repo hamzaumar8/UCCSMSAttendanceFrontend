@@ -22,10 +22,10 @@ const Student = ({ students, levels, modules }) => {
 
     const [modelLevelToggler, setModelLevelToggler] = useState(true);
     const [levelSelectedValue, setLevelSelectedValue] = useState(
-        levels[0].name,
+        levels[0]?.name,
     );
     // const [moduleSelectedValue, setModuleSelectedValue] = useState(
-    //     modules[0].module.code,
+    //     modules[0]?.module.code,
     // );
 
     return (

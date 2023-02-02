@@ -96,7 +96,7 @@ const StaffCordModules = ({ cord_modules }) => {
                                 colSpan={6}>
                                 <span>
                                     <div className="text-lg font-bold text-danger">
-                                        No Results Found.
+                                        No Coordinating Modules Found.
                                     </div>
                                 </span>
                             </td>
