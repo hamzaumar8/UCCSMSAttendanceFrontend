@@ -8,6 +8,7 @@ import LecturerBackNavigation from "./Lecturer/LecturerBackNavigation";
 import PageLoader from "../PageLoader";
 import StudentSideNav from "./Student/StudentSideNav";
 import StudentNavigation from "./Student/StudentNavigation";
+import Footer from "./Footer";
 
 const StudentLayout = ({
     header = "",
@@ -49,6 +50,7 @@ const StudentLayout = ({
                     {children}
                 </section>
             </main>
+            <Footer />
             <AnimatePresence>
                 {modalOpen && (
                     <Modal

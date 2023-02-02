@@ -8,6 +8,7 @@ import { modalState, modalTypeState } from "../../src/atoms/modalAtom.js";
 import { useRouter } from "next/router";
 import { ToastContainer } from "react-toastify";
 import PageLoader from "../PageLoader";
+import Footer from "./Footer";
 
 const AppLayout = ({ header = "", breadcrumbs = "", children }) => {
     const router = useRouter();
@@ -39,6 +40,7 @@ const AppLayout = ({ header = "", breadcrumbs = "", children }) => {
                     {children}
                 </section>
             </main>
+            <Footer />
             <AnimatePresence>
                 {modalOpen && (
                     <Modal

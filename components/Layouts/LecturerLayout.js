@@ -8,6 +8,7 @@ import LecturerNavigation from "./Lecturer/LecturerNavigation";
 import LecturerBackNavigation from "./Lecturer/LecturerBackNavigation";
 import LecturerSideNav from "./Lecturer/LecturerSideNav";
 import PageLoader from "../PageLoader";
+import Footer from "./Footer";
 
 const LecturerLayout = ({
     header = "",
@@ -49,6 +50,7 @@ const LecturerLayout = ({
                     {children}
                 </section>
             </main>
+            <Footer />
             <AnimatePresence>
                 {modalOpen && (
                     <Modal
