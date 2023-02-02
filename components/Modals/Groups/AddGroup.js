@@ -9,7 +9,7 @@ import axios from "../../../src/lib/axios";
 import { useGroup } from "../../../src/hooks/group";
 
 const AddGroup = ({ onClick }) => {
-    const { genrateGroups, loading } = useGroup();
+    const { generateGroups, loading } = useGroup();
     const [level, setLevel] = useState("");
     const [name, setName] = useState("");
     const [noOfGroup, setNoOfGroup] = useState("");
@@ -41,7 +41,7 @@ const AddGroup = ({ onClick }) => {
             setErrs(true);
         } else {
             setErrs(false);
-            genrateGroups({
+            generateGroups({
                 level,
                 name,
                 no_of_group: noOfGroup,

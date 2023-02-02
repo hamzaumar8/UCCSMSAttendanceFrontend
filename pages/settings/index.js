@@ -132,7 +132,12 @@ export default Settings;
 
 export async function getServerSideProps() {
     const promotionResponse = await axios.get("api/v1/promotion/check");
-    const promotion = promotionResponse.data.data;
+    let promotion;
+    try {
+        promotion = promotionResponse.data.data;
+    } catch (error) {
+        promotion = [];
+    }
     return {
         props: {
             promotion,

@@ -11,9 +11,11 @@ import { SectionLoader } from "../../components/PageLoader";
 import { useAuth } from "../../src/hooks/auth";
 import StudentTimetable from "../../components/Student/Dashboard/Timetable";
 import StudentModulesList from "../../components/Student/Dashboard/StudentModulesList";
+import { useSemester } from "../../src/hooks/semester";
 
-const StudentDashboard = ({ semester }) => {
+const StudentDashboard = () => {
     const { user } = useAuth({ middleware: "auth" });
+    const { semester } = useSemester();
 
     const {
         data: registeredModules,
@@ -24,6 +26,10 @@ const StudentDashboard = ({ semester }) => {
             .get("api/v1/student/modules/")
             .then(response => response.data.data),
     );
+
+    if (semester === undefined) {
+        return <PageLoader />;
+    }
 
     return (
         <StudentLayout header="Student Dashboard">
@@ -156,13 +162,3 @@ const StudentDashboard = ({ semester }) => {
 };
 
 export default StudentDashboard;
-
-export async function getServerSideProps() {
-    const responseSemester = await axios.get("api/v1/semester");
-    const semester = responseSemester.data.data;
-    return {
-        props: {
-            semester,
-        },
-    };
-}

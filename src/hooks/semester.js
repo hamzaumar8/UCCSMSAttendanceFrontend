@@ -40,7 +40,7 @@ export const useSemester = () => {
                 if (res.data.status === "success") {
                     setLoading(false);
                     refreshData();
-                    toast.success("Semester set succesfully", {
+                    toast.success("Semester set successfully", {
                         position: toast.POSITION.TOP_RIGHT,
                     });
                 }

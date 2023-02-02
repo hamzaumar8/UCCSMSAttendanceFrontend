@@ -17,7 +17,7 @@ export const useGroup = () => {
 
     const csrf = () => axios.get("/sanctum/csrf-cookie");
 
-    const genrateGroups = async ({ setErrors, setStatus, ...props }) => {
+    const generateGroups = async ({ setErrors, setStatus, ...props }) => {
         setLoading(true);
         setErrors([]);
         setStatus(null);
@@ -29,7 +29,7 @@ export const useGroup = () => {
                 if (res.data.status === "success") {
                     setLoading(false);
                     setModalOpen(false);
-                    toast.success("Group Generated succesfully", {
+                    toast.success("Group Generated successfully", {
                         position: toast.POSITION.TOP_RIGHT,
                     });
                     refreshData();
@@ -52,7 +52,7 @@ export const useGroup = () => {
             .delete(`/api/v1/groups/${id}`)
             .then(res => {
                 setLoading(false);
-                toast.success("Group Generated succesfully", {
+                toast.success("Group deleted successfully", {
                     position: toast.POSITION.TOP_RIGHT,
                 });
                 refreshData();
@@ -65,7 +65,7 @@ export const useGroup = () => {
 
     return {
         loading,
-        genrateGroups,
+        generateGroups,
         deleteGroup,
     };
 };
