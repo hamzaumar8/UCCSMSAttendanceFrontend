@@ -68,11 +68,11 @@ const Login = () => {
                 <form onSubmit={submitForm} autoComplete="off">
                     {/* Email Address */}
                     <div>
-                        <Label htmlFor="email">Email</Label>
+                        <Label htmlFor="email">Email or Username</Label>
 
                         <Input
                             id="email"
-                            type="email"
+                            type="text"
                             value={email}
                             className="block mt-1 w-full"
                             onChange={event => setEmail(event.target.value)}
