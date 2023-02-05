@@ -13,11 +13,10 @@ import InputError from "../../components/InputError";
 import StudentTimetable from "../../components/Student/Dashboard/Timetable";
 import { useRecoilState } from "recoil";
 import { pdfBlobState } from "../../src/atoms/semesterAtom";
-import PageLoader from "../../components/PageLoader";
 
-const Timetable = () => {
+const Timetable = ({ semester }) => {
     const defaultLayoutPluginInstance = defaultLayoutPlugin();
-    const { semester, timetableSemester, loading } = useSemester();
+    const { timetableSemester, loading } = useSemester();
 
     const [pdfBlob, setPDFBlob] = useRecoilState(pdfBlobState);
 
@@ -68,10 +67,6 @@ const Timetable = () => {
             setStatus,
         });
     };
-
-    if (semester === undefined) {
-        return <PageLoader loading={true} />;
-    }
 
     return (
         <AppLayout header="Timetable">
@@ -181,7 +176,7 @@ const Timetable = () => {
                             </div>
                         </div>
                     ) : (
-                        <StudentTimetable semester={semester} />
+                        semester && <StudentTimetable semester={semester} />
                     )}
                 </div>
             </div>
@@ -190,3 +185,21 @@ const Timetable = () => {
 };
 
 export default Timetable;
+
+export async function getServerSideProps() {
+    const responseSemester = await axios.get("api/v1/semester");
+    let semester;
+    try {
+        semester = responseSemester.data.data;
+        semester ? semester : {};
+    } catch (error) {
+        console.log(error);
+        semester = null;
+    }
+
+    return {
+        props: {
+            semester,
+        },
+    };
+}

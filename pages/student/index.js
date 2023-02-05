@@ -7,15 +7,15 @@ import Link from "next/link";
 import useSWR from "swr";
 import { CalendarDaysIcon } from "@heroicons/react/24/outline";
 import format from "date-fns/format";
-import PageLoader, { SectionLoader } from "../../components/PageLoader";
+import { SectionLoader } from "../../components/PageLoader";
 import { useAuth } from "../../src/hooks/auth";
 import StudentTimetable from "../../components/Student/Dashboard/Timetable";
 import StudentModulesList from "../../components/Student/Dashboard/StudentModulesList";
 import { useSemester } from "../../src/hooks/semester";
 
-const StudentDashboard = () => {
+const StudentDashboard = ({ semester }) => {
     const { user } = useAuth({ middleware: "auth" });
-    const { semester } = useSemester();
+    // const { semester } = useSemester();
 
     const {
         data: registeredModules,
@@ -28,9 +28,10 @@ const StudentDashboard = () => {
     );
 
     if (semester === undefined) {
-        return <PageLoader loading={true} />;
+        return "loading";
     }
 
+    console.log(registeredModules);
     return (
         <StudentLayout header="Student Dashboard">
             <HeadTitle title="Student Dashboard" />
@@ -115,7 +116,7 @@ const StudentDashboard = () => {
                             </div>
                         </Card>
                     </div>
-                    {/* Active Modules Card */}
+                    {/* { Active Modules Card } */}
                     <div className="col-span-1 xl:col-span-3">
                         {semester ? (
                             <Card
@@ -155,10 +156,27 @@ const StudentDashboard = () => {
                         )}
                     </div>
                 </div>
-                <StudentTimetable semester={semester} />
+                {semester && <StudentTimetable semester={semester} />}
             </div>
         </StudentLayout>
     );
 };
 
 export default StudentDashboard;
+
+export async function getServerSideProps() {
+    const responseSemester = await axios.get("api/v1/semester");
+    let semester;
+    try {
+        semester = responseSemester.data.data;
+    } catch (error) {
+        console.log(error);
+        semester = null;
+    }
+
+    return {
+        props: {
+            semester,
+        },
+    };
+}

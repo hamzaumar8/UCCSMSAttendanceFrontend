@@ -8,7 +8,6 @@ import Card from "../../Card";
 import ElementNotFound from "../../ElementNorFound";
 
 const StudentTimetable = ({ semester }) => {
-    const { id, timetable } = semester;
     const defaultLayoutPluginInstance = defaultLayoutPlugin();
     const [pdfBlob, setPDFBlob] = useRecoilState(pdfBlobState);
 
@@ -20,8 +19,8 @@ const StudentTimetable = ({ semester }) => {
                 response => response.status === 200 && setPDFBlob(response.url),
             );
         };
-        if (timetable) {
-            fetchPdf(id);
+        if (semester?.timetable) {
+            fetchPdf(semester?.id);
         }
     }, []);
     return (
@@ -34,7 +33,7 @@ const StudentTimetable = ({ semester }) => {
                 }>
                 {semester ? (
                     <>
-                        {timetable ? (
+                        {semester?.timetable ? (
                             <div className="h-[800px] w-full">
                                 {pdfBlob && (
                                     <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.1.81/build/pdf.worker.js">

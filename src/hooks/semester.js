@@ -19,12 +19,7 @@ export const useSemester = () => {
         error,
         mutate,
     } = useSWR("/api/v1/semester", () =>
-        axios
-            .get("/api/v1/semester")
-            .then(res => res.data.data)
-            .catch(error => {
-                if (error.response.status !== 409) throw error;
-            }),
+        axios.get("/api/v1/semester").then(res => res.data.data),
     );
 
     const addSemester = async ({ setErrors, setStatus, ...props }) => {

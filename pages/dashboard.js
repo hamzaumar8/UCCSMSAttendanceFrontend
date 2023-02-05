@@ -345,19 +345,30 @@ export default Dashboard;
 
 export async function getServerSideProps() {
     const studentsResponse = await axios.get("api/v1/students");
-    const students = studentsResponse.data.data;
-
-    const response = await axios.get("api/v1/modules");
-    const cordinators = response.data.data;
-
+    const coordinatorsResponse = await axios.get("api/v1/modules");
     const lecturersResponse = await axios.get("api/v1/lecturers");
-    const lecturers = lecturersResponse.data.data;
-
-    const modulesResponse = await axios.get("api/v1/modules");
-    const modules = modulesResponse.data.data;
-
     const responseSemester = await axios.get("api/v1/semester");
-    const semester = responseSemester.data.data;
+    const modulesResponse = await axios.get("api/v1/modules");
+
+    let students, cordinators, lecturers, semester, modules;
+
+    try {
+        students = studentsResponse.data.data;
+
+        cordinators = coordinatorsResponse.data.data;
+
+        lecturers = lecturersResponse.data.data;
+
+        modules = modulesResponse.data.data;
+
+        semester = responseSemester.data.data;
+    } catch (error) {
+        students = [];
+        cordinators = [];
+        lecturers = [];
+        semester = null;
+        modules = [];
+    }
     return {
         props: {
             modules,
