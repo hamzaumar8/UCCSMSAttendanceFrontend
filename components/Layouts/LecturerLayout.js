@@ -49,8 +49,8 @@ const LecturerLayout = ({
                 <section className="w-full sm:px-6 sm:pb-10">
                     {children}
                 </section>
+                <Footer />
             </main>
-            <Footer />
             <AnimatePresence>
                 {modalOpen && (
                     <Modal

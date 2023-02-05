@@ -37,14 +37,17 @@ export const useAuth = ({ middleware } = {}) => {
             .post("/api/auth/token", props)
             .then(response => {
                 setLoading(false);
+                console.log(token);
                 mutate();
                 saveAuthToken(response.data.token);
             })
             .catch(error => {
                 setLoading(false);
-                if (error.response.status !== 422) throw error;
-
-                setErrors(error.response.data.errors);
+                if (error.response.status === 422) {
+                    setErrors(error.response.data.errors);
+                } else {
+                    console.log(error);
+                }
             });
     };
 

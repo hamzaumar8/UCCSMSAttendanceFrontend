@@ -7,7 +7,7 @@ import Link from "next/link";
 import useSWR from "swr";
 import { CalendarDaysIcon } from "@heroicons/react/24/outline";
 import format from "date-fns/format";
-import { SectionLoader } from "../../components/PageLoader";
+import PageLoader, { SectionLoader } from "../../components/PageLoader";
 import { useAuth } from "../../src/hooks/auth";
 import StudentTimetable from "../../components/Student/Dashboard/Timetable";
 import StudentModulesList from "../../components/Student/Dashboard/StudentModulesList";
@@ -28,7 +28,7 @@ const StudentDashboard = () => {
     );
 
     if (semester === undefined) {
-        return <PageLoader />;
+        return <PageLoader loading={true} />;
     }
 
     return (

@@ -70,7 +70,7 @@ const Timetable = () => {
     };
 
     if (semester === undefined) {
-        return <PageLoader />;
+        return <PageLoader loading={true} />;
     }
 
     return (

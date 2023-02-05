@@ -6,8 +6,9 @@ import { useSemester } from "../../../src/hooks/semester";
 
 const StaffTimetable = () => {
     const { semester } = useSemester();
+
     if (semester === undefined) {
-        return <PageLoader />;
+        return <PageLoader loading={true} />;
     }
     return (
         <LecturerLayout header="Timetable">

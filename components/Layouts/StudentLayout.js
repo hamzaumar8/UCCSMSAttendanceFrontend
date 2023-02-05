@@ -49,8 +49,8 @@ const StudentLayout = ({
                 <section className="w-full p-6 sm:px-8 lg:px-12 sm:py-8 mx-auto">
                     {children}
                 </section>
+                <Footer />
             </main>
-            <Footer />
             <AnimatePresence>
                 {modalOpen && (
                     <Modal

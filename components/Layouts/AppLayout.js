@@ -39,8 +39,8 @@ const AppLayout = ({ header = "", breadcrumbs = "", children }) => {
                 <section className="w-full px-6 sm:px-8 lg:px-12 py-6  sm:py-8 mx-auto">
                     {children}
                 </section>
+                <Footer />
             </main>
-            <Footer />
             <AnimatePresence>
                 {modalOpen && (
                     <Modal
