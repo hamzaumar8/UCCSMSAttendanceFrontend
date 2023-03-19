@@ -7,15 +7,15 @@ import Link from "next/link";
 import useSWR from "swr";
 import { CalendarDaysIcon } from "@heroicons/react/24/outline";
 import format from "date-fns/format";
-import { SectionLoader } from "../../components/PageLoader";
+import PageLoader, { SectionLoader } from "../../components/PageLoader";
 import { useAuth } from "../../src/hooks/auth";
 import StudentTimetable from "../../components/Student/Dashboard/Timetable";
 import StudentModulesList from "../../components/Student/Dashboard/StudentModulesList";
 import { useSemester } from "../../src/hooks/semester";
 
-const StudentDashboard = ({ semester }) => {
+const StudentDashboard = () => {
     const { user } = useAuth({ middleware: "auth" });
-    // const { semester } = useSemester();
+    const { semester } = useSemester();
 
     const {
         data: registeredModules,
@@ -28,10 +28,9 @@ const StudentDashboard = ({ semester }) => {
     );
 
     if (semester === undefined) {
-        return "loading";
+        return <PageLoader />;
     }
 
-    console.log(registeredModules);
     return (
         <StudentLayout header="Student Dashboard">
             <HeadTitle title="Student Dashboard" />
@@ -164,19 +163,19 @@ const StudentDashboard = ({ semester }) => {
 
 export default StudentDashboard;
 
-export async function getServerSideProps() {
-    const responseSemester = await axios.get("api/v1/semester");
-    let semester;
-    try {
-        semester = responseSemester.data.data;
-    } catch (error) {
-        console.log(error);
-        semester = null;
-    }
+// export async function getServerSideProps() {
+//     const responseSemester = await axios.get("api/v1/semester");
+//     let semester;
+//     try {
+//         semester = responseSemester.data.data;
+//     } catch (error) {
+//         console.log(error);
+//         semester = null;
+//     }
 
-    return {
-        props: {
-            semester,
-        },
-    };
-}
+//     return {
+//         props: {
+//             semester,
+//         },
+//     };
+// }

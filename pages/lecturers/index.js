@@ -73,14 +73,17 @@ const Lecturer = ({ lecturers, lecturersSummary }) => {
                             exit={{ x: -50, opacity: 0 }}
                             transition={{ duration: 0.2 }}>
                             {searchToggle ? (
-                                <div className="relative max-w-xs">
+                                <div className="relative max-w-sm">
                                     <input
                                         type="text"
                                         name="hs-table-search"
                                         id="hs-table-search"
                                         className="block w-full p-3 pl-10 text-sm border-gray-200 rounded-md focus:border-primary focus:ring-primary dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 outline-none"
                                         placeholder="Search..."
-                                        onChange={e => setQuery(e.target.value)}
+                                        onChange={e => {
+                                            setQuery(e.target.value);
+                                            setSearching(true);
+                                        }}
                                     />
                                     <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
                                         <MagnifyingGlassIcon className="h-4 w-4 text-gray-text" />
@@ -94,7 +97,7 @@ const Lecturer = ({ lecturers, lecturersSummary }) => {
                                     }}
                                     className="inline-flex items-center px-6 py-2 bg-white text-primary rounded-full font-bold text-xs capitalize border-2 border-primary tracking-widest transition ease-in-out duration-150">
                                     <ArrowUpTrayIcon className="w-4 h-4 mr-1" />
-                                    Improt CSV
+                                    Import CSV
                                 </button>
                             )}
                         </motion.div>

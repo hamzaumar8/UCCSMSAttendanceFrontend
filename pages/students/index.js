@@ -119,7 +119,7 @@ const Student = ({ students, levels, modules }) => {
                                 setModalType("importStudent");
                             }}>
                             <ArrowUpTrayIcon className="w-4 h-4 mr-1" />
-                            Improt CSV
+                            Import CSV
                         </button>
                         <motion.button
                             whileHover={{ scale: 1.01 }}

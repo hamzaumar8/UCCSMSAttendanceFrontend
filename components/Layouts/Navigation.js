@@ -131,7 +131,7 @@ const Navigation = ({ user, header, breadcrumbs }) => {
                             <ResponsiveNavLink
                                 href="/lecturers"
                                 active={router.pathname === "/lecturers"}>
-                                Lectures
+                                Lecturers
                             </ResponsiveNavLink>
                             <ResponsiveNavLink
                                 href="/cordinators"

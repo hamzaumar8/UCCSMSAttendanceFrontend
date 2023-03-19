@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLecturer } from "../../../src/hooks/lecturer";
+import { useStudent } from "../../../src/hooks/student";
 import Button from "../../Button";
 import Input from "../../Input";
 import InputError from "../../InputError";
@@ -7,7 +7,7 @@ import Label from "../../Label";
 import Select from "../../Select";
 
 const StudentImport = ({ onClick }) => {
-    const { importLecturer, loading } = useLecturer();
+    const { importStudent, loading } = useStudent();
 
     const [file, setFile] = useState("");
     const [errors, setErrors] = useState([]);
@@ -39,7 +39,7 @@ const StudentImport = ({ onClick }) => {
         event.preventDefault();
         const formData = new FormData();
         formData.append("file", file);
-        importLecturer({
+        importStudent({
             formData,
             setErrors,
             setStatus,
@@ -50,8 +50,8 @@ const StudentImport = ({ onClick }) => {
         <form
             onSubmit={submitForm}
             className="-ml-2"
-            accept-charset="UTF-8"
-            enctype="multipart/form-data">
+            acceptCharset="UTF-8"
+            encType="multipart/form-data">
             <div className="flex items-center justify-between border-b px-8 py-4 ">
                 <h4 className="text-2xl font-bold text-black-text">
                     Import Student (CSV)

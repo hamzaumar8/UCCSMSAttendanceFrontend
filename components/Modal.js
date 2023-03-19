@@ -1,4 +1,3 @@
-import { XMarkIcon } from "@heroicons/react/24/solid";
 import { motion } from "framer-motion";
 import { useRecoilState } from "recoil";
 import { modalEditState } from "../src/atoms/modalAtom";
@@ -18,6 +17,8 @@ import LecturerImport from "./Modals/Lecturers/LecturerImport";
 import StudentImport from "./Modals/students/StudentImport";
 import ModuleStudentAddForm from "./Modals/Module/ModuleStudentAddForm";
 import CheckInSuccess from "./Modals/Staff/CheckInSuccess";
+import { ClipLoader } from "react-spinners";
+import ResultImport from "./Modals/Results/ResultImport";
 
 const dropIn = {
     hidden: {
@@ -68,181 +69,224 @@ const Modal = ({ handleClose, type }) => {
     return (
         <>
             {type === "addGroup" && (
-                <Backdrop>
+                <Backdrop onClick={handleClose}>
                     <motion.div
                         onClick={e => e.stopPropagation()}
                         variants={dropIn}
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        className="rounded-lg flex flex-col justify-center z-0 bg-primary-accent w-full max-w-xl mx-6  after:absolute after:-top-2 after:-left-2 after:w-full after:h-full after:bg-white after:-z-10 after:rounded-lg after:shadow-md">
-                        <AddGroup onClick={handleClose} />
+                        className=" max-w-xl mx-auto flex items-center min-h-full relative w-full pointer-events-none transition duration-300 ease-out">
+                        <div className="flex relative flex-col w-full pointer-events-auto z-0 bg-primary-accent outline-none rounded-lg after:absolute after:-top-2 after:-left-2 after:w-full after:h-full after:bg-white after:-z-10 after:rounded-lg after:shadow-md">
+                            <AddGroup onClick={handleClose} />
+                        </div>
                     </motion.div>
                 </Backdrop>
             )}
             {type === "addStudent" && (
-                <Backdrop>
+                <Backdrop onClick={handleClose}>
                     <motion.div
                         onClick={e => e.stopPropagation()}
                         variants={dropIn}
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        className="rounded-lg flex flex-col justify-center z-0 bg-primary-accent w-full max-w-xl mx-6  after:absolute after:-top-2 after:-left-2 after:w-full after:h-full after:bg-white after:-z-10 after:rounded-lg after:shadow-md">
-                        <StudentAddForm onClick={handleClose} />
+                        className=" max-w-xl mx-auto flex items-center min-h-full relative w-full pointer-events-none transition duration-300 ease-out">
+                        <div className="flex relative flex-col w-full pointer-events-auto z-0 bg-primary-accent outline-none rounded-lg after:absolute after:-top-2 after:-left-2 after:w-full after:h-full after:bg-white after:-z-10 after:rounded-lg after:shadow-md">
+                            <StudentAddForm onClick={handleClose} />
+                        </div>
                     </motion.div>
                 </Backdrop>
             )}
 
             {type === "importStudent" && (
-                <Backdrop>
+                <Backdrop onClick={handleClose}>
                     <motion.div
                         onClick={e => e.stopPropagation()}
                         variants={dropIn}
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        className="rounded-lg flex flex-col justify-center z-0 bg-primary-accent w-full max-w-xl mx-6  after:absolute after:-top-2 after:-left-2 after:w-full after:h-full after:bg-white after:-z-10 after:rounded-lg after:shadow-md">
-                        <StudentImport onClick={handleClose} />
+                        className=" max-w-xl mx-auto flex items-center min-h-full relative w-full pointer-events-none transition duration-300 ease-out">
+                        <div className="flex relative flex-col w-full pointer-events-auto z-0 bg-primary-accent outline-none rounded-lg after:absolute after:-top-2 after:-left-2 after:w-full after:h-full after:bg-white after:-z-10 after:rounded-lg after:shadow-md">
+                            <StudentImport onClick={handleClose} />
+                        </div>
                     </motion.div>
                 </Backdrop>
             )}
             {type === "editStudent" && (
-                <Backdrop>
+                <Backdrop onClick={handleClose}>
                     <motion.div
                         onClick={e => e.stopPropagation()}
                         variants={dropIn}
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        className="rounded-lg flex flex-col justify-center z-0 bg-primary-accent w-full max-w-xl mx-6  after:absolute after:-top-2 after:-left-2 after:w-full after:h-full after:bg-white after:-z-10 after:rounded-lg after:shadow-md">
-                        <StudentEditForm
-                            onClick={handleClose}
-                            student={modalEdit}
-                        />
+                        className=" max-w-xl mx-auto flex items-center min-h-full relative w-full pointer-events-none transition duration-300 ease-out">
+                        <div className="flex relative flex-col w-full pointer-events-auto z-0 bg-primary-accent outline-none rounded-lg after:absolute after:-top-2 after:-left-2 after:w-full after:h-full after:bg-white after:-z-10 after:rounded-lg after:shadow-md">
+                            <StudentEditForm
+                                onClick={handleClose}
+                                student={modalEdit}
+                            />
+                        </div>
                     </motion.div>
                 </Backdrop>
             )}
 
             {type === "addModule" && (
-                <Backdrop>
+                <Backdrop onClick={handleClose}>
                     <motion.div
                         onClick={e => e.stopPropagation()}
                         variants={dropIn}
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        className="rounded-lg flex flex-col justify-center z-0 bg-primary-accent w-full max-w-xl mx-6  after:absolute after:-top-2 after:-left-2 after:w-full after:h-full after:bg-white after:-z-10 after:rounded-lg after:shadow-md">
-                        <ModuleAddForm onClick={handleClose} />
+                        className=" max-w-xl mx-auto flex items-center min-h-full relative w-full pointer-events-none transition duration-300 ease-out">
+                        <div className="flex relative flex-col w-full pointer-events-auto z-0 bg-primary-accent outline-none rounded-lg after:absolute after:-top-2 after:-left-2 after:w-full after:h-full after:bg-white after:-z-10 after:rounded-lg after:shadow-md">
+                            <ModuleAddForm onClick={handleClose} />
+                        </div>
                     </motion.div>
                 </Backdrop>
             )}
 
             {type === "editModule" && (
-                <Backdrop>
+                <Backdrop onClick={handleClose}>
                     <motion.div
                         onClick={e => e.stopPropagation()}
                         variants={dropIn}
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        className="rounded-lg flex flex-col justify-center z-0 bg-primary-accent w-full max-w-xl mx-6  after:absolute after:-top-2 after:-left-2 after:w-full after:h-full after:bg-white after:-z-10 after:rounded-lg after:shadow-md">
-                        <ModuleEditForm
-                            onClick={handleClose}
-                            module={modalEdit}
-                        />
+                        className=" max-w-xl mx-auto flex items-center min-h-full relative w-full pointer-events-none transition duration-300 ease-out">
+                        <div className="flex relative flex-col w-full pointer-events-auto z-0 bg-primary-accent outline-none rounded-lg after:absolute after:-top-2 after:-left-2 after:w-full after:h-full after:bg-white after:-z-10 after:rounded-lg after:shadow-md">
+                            <ModuleEditForm
+                                onClick={handleClose}
+                                module={modalEdit}
+                            />
+                        </div>
                     </motion.div>
                 </Backdrop>
             )}
 
             {type === "addStudentModule" && (
-                <Backdrop>
+                <Backdrop onClick={handleClose}>
                     <motion.div
                         onClick={e => e.stopPropagation()}
                         variants={dropIn}
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        className="rounded-lg flex flex-col justify-center z-0 bg-primary-accent w-full max-w-xl mx-6  after:absolute after:-top-2 after:-left-2 after:w-full after:h-full after:bg-white after:-z-10 after:rounded-lg after:shadow-md">
-                        <ModuleStudentAddForm
-                            onClick={handleClose}
-                            module={modalEdit}
-                        />
+                        className=" max-w-xl mx-auto flex items-center min-h-full relative w-full pointer-events-none transition duration-300 ease-out">
+                        <div className="flex relative flex-col w-full pointer-events-auto z-0 bg-primary-accent outline-none rounded-lg after:absolute after:-top-2 after:-left-2 after:w-full after:h-full after:bg-white after:-z-10 after:rounded-lg after:shadow-md">
+                            <ModuleStudentAddForm
+                                onClick={handleClose}
+                                module={modalEdit}
+                            />
+                        </div>
                     </motion.div>
                 </Backdrop>
             )}
 
             {type === "mountModule" && (
-                <Backdrop>
+                <Backdrop onClick={handleClose}>
                     <motion.div
                         onClick={e => e.stopPropagation()}
                         variants={dropIn}
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        className="rounded-lg flex flex-col justify-center z-0 bg-primary-accent w-full max-w-xl mx-6  after:absolute after:-top-2 after:-left-2 after:w-full after:h-full after:bg-white after:-z-10 after:rounded-lg after:shadow-md">
-                        <ModuleMountForm onClick={handleClose} />
+                        className=" max-w-xl mx-auto flex items-center min-h-full relative w-full pointer-events-none transition duration-300 ease-out">
+                        <div className="flex relative flex-col w-full pointer-events-auto z-0 bg-primary-accent outline-none rounded-lg after:absolute after:-top-2 after:-left-2 after:w-full after:h-full after:bg-white after:-z-10 after:rounded-lg after:shadow-md">
+                            <ModuleMountForm onClick={handleClose} />
+                        </div>
                     </motion.div>
                 </Backdrop>
             )}
 
             {type === "editmountModule" && (
-                <Backdrop>
+                <Backdrop onClick={handleClose}>
                     <motion.div
                         onClick={e => e.stopPropagation()}
                         variants={dropIn}
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        className="rounded-lg flex flex-col justify-center z-0 bg-primary-accent w-full max-w-xl mx-6  after:absolute after:-top-2 after:-left-2 after:w-full after:h-full after:bg-white after:-z-10 after:rounded-lg after:shadow-md">
-                        <ModuleMountEditForm
-                            onClick={handleClose}
-                            module={modalEdit}
-                        />
+                        className=" max-w-xl mx-auto flex items-center min-h-full relative w-full pointer-events-none transition duration-300 ease-out">
+                        <div className="flex relative flex-col w-full pointer-events-auto z-0 bg-primary-accent outline-none rounded-lg after:absolute after:-top-2 after:-left-2 after:w-full after:h-full after:bg-white after:-z-10 after:rounded-lg after:shadow-md">
+                            <ModuleMountEditForm
+                                onClick={handleClose}
+                                module={modalEdit}
+                            />
+                        </div>
                     </motion.div>
                 </Backdrop>
             )}
 
             {type === "addlecturer" && (
-                <Backdrop>
+                <Backdrop onClick={handleClose}>
                     <motion.div
                         onClick={e => e.stopPropagation()}
                         variants={dropIn}
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        className="rounded-lg flex flex-col justify-center z-0 bg-primary-accent w-full max-w-xl mx-6  after:absolute after:-top-2 after:-left-2 after:w-full after:h-full after:bg-white after:-z-10 after:rounded-lg after:shadow-md">
-                        <LecturerAddForm onClick={handleClose} />
+                        className=" max-w-xl mx-auto flex items-center min-h-full relative w-full pointer-events-none transition duration-300 ease-out">
+                        <div className="flex relative flex-col w-full pointer-events-auto z-0 bg-primary-accent outline-none rounded-lg after:absolute after:-top-2 after:-left-2 after:w-full after:h-full after:bg-white after:-z-10 after:rounded-lg after:shadow-md">
+                            <LecturerAddForm onClick={handleClose} />
+                        </div>
                     </motion.div>
                 </Backdrop>
             )}
             {type === "importLecturer" && (
-                <Backdrop>
+                <Backdrop onClick={handleClose}>
                     <motion.div
                         onClick={e => e.stopPropagation()}
                         variants={dropIn}
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        className="rounded-lg flex flex-col justify-center z-0 bg-primary-accent w-full max-w-xl mx-6  after:absolute after:-top-2 after:-left-2 after:w-full after:h-full after:bg-white after:-z-10 after:rounded-lg after:shadow-md">
-                        <LecturerImport onClick={handleClose} />
+                        className=" max-w-xl mx-auto flex items-center min-h-full relative w-full pointer-events-none transition duration-300 ease-out">
+                        <div className="flex relative flex-col w-full pointer-events-auto z-0 bg-primary-accent outline-none rounded-lg after:absolute after:-top-2 after:-left-2 after:w-full after:h-full after:bg-white after:-z-10 after:rounded-lg after:shadow-md">
+                            <LecturerImport onClick={handleClose} />
+                        </div>
+                    </motion.div>
+                </Backdrop>
+            )}
+
+            {type === "importResult" && (
+                <Backdrop onClick={handleClose}>
+                    <motion.div
+                        onClick={e => e.stopPropagation()}
+                        variants={dropIn}
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                        className=" max-w-xl mx-auto flex items-center min-h-full relative w-full pointer-events-none transition duration-300 ease-out">
+                        <div className="flex relative flex-col w-full pointer-events-auto z-0 bg-primary-accent outline-none rounded-lg after:absolute after:-top-2 after:-left-2 after:w-full after:h-full after:bg-white after:-z-10 after:rounded-lg after:shadow-md">
+                            <ResultImport
+                                result={modalEdit}
+                                onClick={handleClose}
+                            />
+                        </div>
                     </motion.div>
                 </Backdrop>
             )}
 
             {type === "editLecturer" && (
-                <Backdrop>
+                <Backdrop onClick={handleClose}>
                     <motion.div
                         onClick={e => e.stopPropagation()}
-                        variants={dropIn}
+                        // variants={dropIn}
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        className="rounded-lg flex flex-col justify-center z-0 bg-primary-accent w-full max-w-xl mx-6  after:absolute after:-top-2 after:-left-2 after:w-full after:h-full after:bg-white after:-z-10 after:rounded-lg after:shadow-md">
-                        <LecturerEditForm
-                            onClick={handleClose}
-                            lecturer={modalEdit}
-                        />
+                        className="max-w-xl mx-auto flex items-center min-h-full relative w-full pointer-events-none transition duration-300 ease-out">
+                        <div className="flex relative flex-col w-full pointer-events-auto z-0 bg-primary-accent outline-none rounded-lg after:absolute after:-top-2 after:-left-2 after:w-full after:h-full after:bg-white after:-z-10 after:rounded-lg after:shadow-md">
+                            <LecturerEditForm
+                                onClick={handleClose}
+                                lecturer={modalEdit}
+                            />
+                        </div>
                     </motion.div>
                 </Backdrop>
             )}
@@ -277,15 +321,17 @@ const Modal = ({ handleClose, type }) => {
             )}
 
             {type === "checkInMd" && (
-                <Backdrop className="hidden sm:flex">
+                <Backdrop onClick={handleClose} className="hidden sm:flex">
                     <motion.div
                         onClick={e => e.stopPropagation()}
                         variants={dropIn}
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        className="rounded-lg flex flex-col justify-center z-0 bg-primary-accent w-full max-w-xl mx-6  after:absolute after:-top-2 after:-left-2 after:w-full after:h-full after:bg-white after:-z-10 after:rounded-lg after:shadow-md">
-                        <CheckInModal onClick={handleClose} />
+                        className="max-w-xl mx-auto flex items-center min-h-full relative w-full pointer-events-none transition duration-300 ease-out">
+                        <div className="flex relative flex-col w-full pointer-events-auto z-0 bg-primary-accent outline-none rounded-lg after:absolute after:-top-2 after:-left-2 after:w-full after:h-full after:bg-white after:-z-10 after:rounded-lg after:shadow-md">
+                            <CheckInModal onClick={handleClose} />
+                        </div>
                     </motion.div>
                 </Backdrop>
             )}
@@ -296,15 +342,21 @@ const Modal = ({ handleClose, type }) => {
             )}
 
             {type === "loader" && (
-                <Backdrop>
+                <Backdrop onClick={handleClose}>
                     <motion.div
                         onClick={e => e.stopPropagation()}
                         variants={dropIn}
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        className="rounded-lg flex flex-col justify-center z-0 bg-primary-accent w-full max-w-xl mx-6  after:absolute after:-top-2 after:-left-2 after:w-full after:h-full after:bg-white after:-z-10 after:rounded-lg after:shadow-md">
-                        Loadind
+                        className=" max-w-xl mx-auto flex items-center min-h-full relative w-full pointer-events-none transition duration-300 ease-out">
+                        <div className="flex relative flex-col w-full pointer-events-auto z-0 bg-primary-accent outline-none rounded-lg after:absolute after:-top-2 after:-left-2 after:w-full after:h-full after:bg-white after:-z-10 after:rounded-lg after:shadow-md">
+                            <ClipLoader
+                                size={50}
+                                color="#59FFA0"
+                                loading={true}
+                            />
+                        </div>
                     </motion.div>
                 </Backdrop>
             )}

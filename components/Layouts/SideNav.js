@@ -28,7 +28,7 @@ const SideNav = () => {
                         <ApplicationLogo className="block max-h-14 w-auto " />
                         <div className="transition-all duration-200 ease-nav-brand text-white uppercase">
                             <h1 className="text-lg font-bold">UCC SMS</h1>
-                            <span className="text-sm">Attendance Systems</span>
+                            <span className="text-sm">Academic Tracker</span>
                         </div>
                     </div>
                 </Link>
@@ -58,7 +58,7 @@ const SideNav = () => {
                         href="/lecturers"
                         active={router.pathname === "/lecturers"}>
                         <UsersIcon className="w-6 h-6" />
-                        <span>Lectures</span>
+                        <span>Lecturers</span>
                     </NavLink>
                     <NavLink
                         href="/cordinators"

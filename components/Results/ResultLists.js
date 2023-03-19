@@ -31,7 +31,7 @@ const ResultLists = ({ assessments }) => {
                                     <div>{index + 1}.</div>
                                 </span>
                             </td>
-                            <td className="capitalize p-5 whitespace-nowrap border-b">
+                            <td className="uppercase p-5 whitespace-nowrap border-b">
                                 <span>
                                     <div>{assessment.student.index_number}</div>
                                 </span>

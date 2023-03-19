@@ -67,7 +67,7 @@ const StaffEditResult = ({ result }) => {
                             {/* <div>
                                 <button className="inline-flex items-center px-6 py-2 bg-white text-primary rounded-full font-bold text-xs capitalize border border-primary tracking-widest transition ease-in-out duration-150">
                                     <ArrowUpTrayIcon className="w-4 h-4 mr-1" />
-                                    Improt CSV
+                                    Import CSV
                                 </button>
                             </div> */}
                             <div className="space-x-2">

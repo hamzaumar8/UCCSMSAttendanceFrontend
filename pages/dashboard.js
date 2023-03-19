@@ -79,7 +79,7 @@ const Dashboard = ({ semester, modules, lecturers, cordinators, students }) => {
                                         className="flex items-center justify-between bg-gray-100 p-2 rounded-md">
                                         <div className="flex space-x-4 items-center">
                                             <div className="bg-blue-700 h-2 w-2 rounded-full"></div>
-                                            <h3>Lectures Population</h3>
+                                            <h3>Lecturers Population</h3>
                                         </div>
                                         <div className="bg-white text-xs font-semibold block px-1 text-center rounded-lg w-[50px] py-0.5 mr-6">
                                             <span>{lecturers.length}</span>

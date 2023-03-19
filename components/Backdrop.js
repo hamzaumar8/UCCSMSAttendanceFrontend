@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
 
-const Backdrop = ({ children, className = "" }) => {
+const Backdrop = ({ children, onClick, className = "" }) => {
     return (
         <motion.div
-            className={`${className} fixed top-0 left-0 h-full w-full overflow-hidden bg-black/70 flex items-center justify-center z-50`}
+            onClick={onClick}
+            className={`${className} fixed top-0 left-0 h-full overflow-hidden bg-black/70 z-50 p-8 px-4 outline-0 overflow-y-auto overflow-x-hidden w-full`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}>

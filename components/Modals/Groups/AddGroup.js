@@ -19,7 +19,7 @@ const AddGroup = ({ onClick }) => {
     const [errs, setErrs] = useState(false);
     const [status, setStatus] = useState(null);
 
-    const getCapcity = () => {
+    const getCapacity = () => {
         if (level) {
             const data = levelData.filter(item => item.id === level);
             return data[0]?.students_count;
@@ -37,7 +37,7 @@ const AddGroup = ({ onClick }) => {
 
     const submitForm = event => {
         event.preventDefault();
-        if (noOfGroup > getCapcity()) {
+        if (noOfGroup > getCapacity()) {
             setErrs(true);
         } else {
             setErrs(false);
@@ -127,7 +127,7 @@ const AddGroup = ({ onClick }) => {
                             <Input
                                 type="text"
                                 id="noOfGroup"
-                                value={getCapcity()}
+                                value={getCapacity()}
                                 className="block mt-1 w-full disabled:bg-primary-accent"
                                 disabled={true}
                             />

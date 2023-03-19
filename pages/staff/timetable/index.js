@@ -1,8 +1,16 @@
 import HeadTitle from "../../../components/HeadTitle";
 import LecturerLayout from "../../../components/Layouts/LecturerLayout";
+import PageLoader from "../../../components/PageLoader";
 import StudentTimetable from "../../../components/Student/Dashboard/Timetable";
+import { useSemester } from "../../../src/hooks/semester";
 
-const StaffTimetable = ({ semester }) => {
+const StaffTimetable = () => {
+    const { semester } = useSemester();
+
+    if (semester === undefined) {
+        return <PageLoader />;
+    }
+
     return (
         <LecturerLayout header="Timetable">
             {/* Title */}
@@ -15,19 +23,19 @@ const StaffTimetable = ({ semester }) => {
 
 export default StaffTimetable;
 
-export async function getServerSideProps() {
-    const responseSemester = await axios.get("api/v1/semester");
-    let semester;
-    try {
-        semester = responseSemester.data.data;
-    } catch (error) {
-        console.log(error);
-        semester = null;
-    }
+// export async function getServerSideProps() {
+//     const responseSemester = await axios.get("api/v1/semester");
+//     let semester;
+//     try {
+//         semester = responseSemester.data.data;
+//     } catch (error) {
+//         console.log(error);
+//         semester = null;
+//     }
 
-    return {
-        props: {
-            semester,
-        },
-    };
-}
+//     return {
+//         props: {
+//             semester,
+//         },
+//     };
+// }

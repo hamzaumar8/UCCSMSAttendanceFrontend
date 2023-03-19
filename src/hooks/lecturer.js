@@ -66,7 +66,7 @@ export const useLecturer = () => {
                     setLoading(false);
                     refreshData();
                     setModalOpen(false);
-                    toast.success("Lecturer was editted successfully!", {
+                    toast.success("Lecturer was edited successfully!", {
                         position: toast.POSITION.TOP_RIGHT,
                     });
                 }
@@ -94,7 +94,7 @@ export const useLecturer = () => {
                     setLoading(false);
                     refreshData();
                     setModalOpen(false);
-                    toast.success("Lecturer was editted successfully!", {
+                    toast.success("Lecturer was edited successfully!", {
                         position: toast.POSITION.TOP_RIGHT,
                     });
                 }

@@ -11,16 +11,12 @@ const StudentTimetable = ({ semester }) => {
     const defaultLayoutPluginInstance = defaultLayoutPlugin();
     const [pdfBlob, setPDFBlob] = useRecoilState(pdfBlobState);
 
+    console.log(pdfBlob);
     useEffect(() => {
-        const fetchPdf = async id => {
-            fetch(
-                `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/timetable/display/${id}`,
-            ).then(
-                response => response.status === 200 && setPDFBlob(response.url),
-            );
-        };
         if (semester?.timetable) {
-            fetchPdf(semester?.id);
+            setPDFBlob(
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/timetable/display/${semester?.id}`,
+            );
         }
     }, []);
     return (
@@ -54,6 +50,7 @@ const StudentTimetable = ({ semester }) => {
                                         <Image
                                             src="/question.png"
                                             fill
+                                            priority
                                             alt="NotFoundSVG"
                                         />
                                     </div>

@@ -74,9 +74,43 @@ export const useResult = () => {
             });
     };
 
+    const importResult = async ({
+        setErrors,
+        setStatus,
+        formData,
+        ...props
+    }) => {
+        setLoading(true);
+        setErrors([]);
+        setStatus(null);
+
+        await csrf();
+        axios
+            .post(`/api/v1/import/results/${props.id}`, formData)
+            .then(res => {
+                if (res.data.status === "success") {
+                    setLoading(false);
+                    refreshData();
+                    setModalOpen(false);
+                    toast.success("Lecturer was edited successfully!", {
+                        position: toast.POSITION.TOP_RIGHT,
+                    });
+                }
+            })
+            .catch(error => {
+                setLoading(false);
+                if (error.response.status !== 422) {
+                    console.log(error);
+                } else {
+                    setErrors(error.response.data.errors);
+                }
+            });
+    };
+
     return {
         loading,
         editResult,
         updateResultStatus,
+        importResult,
     };
 };

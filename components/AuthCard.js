@@ -16,7 +16,7 @@ const AuthCard = ({ logo, children }) => (
                 {logo}
                 <div className="font-bold uppercase">
                     <h1 className="text-4xl">UCC SMS</h1>
-                    <p className="text-sm">Attendance System</p>
+                    <p className="text-sm">Academic Tracker</p>
                 </div>
             </div>
             <div className="w-full px-7  sm:px-8 py-4  overflow-hidden space-y-8">

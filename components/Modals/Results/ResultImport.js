@@ -1,13 +1,12 @@
 import { useState } from "react";
-import { useLecturer } from "../../../src/hooks/lecturer";
+import { useResult } from "../../../src/hooks/result";
 import Button from "../../Button";
 import Input from "../../Input";
 import InputError from "../../InputError";
 import Label from "../../Label";
-import Select from "../../Select";
 
-const LecturerImport = ({ onClick }) => {
-    const { importLecturer, loading } = useLecturer();
+const ResultImport = ({ result, onClick }) => {
+    const { importResult, loading } = useResult();
 
     const [file, setFile] = useState("");
     const [errors, setErrors] = useState([]);
@@ -19,27 +18,14 @@ const LecturerImport = ({ onClick }) => {
         }
     };
 
-    const handleSampleDownload = event => {
-        event.preventDefault();
-        // using Java Script method to get PDF file
-        fetch("LecturerSample.csv").then(response => {
-            response.blob().then(blob => {
-                // Creating new object of PDF file
-                const fileURL = window.URL.createObjectURL(blob);
-                // Setting various property values
-                let alink = document.createElement("a");
-                alink.href = fileURL;
-                alink.download = "LecturerSample.csv";
-                alink.click();
-            });
-        });
-    };
-
     const submitForm = event => {
         event.preventDefault();
+        console.log(file);
         const formData = new FormData();
+        formData.append("id", result.id);
         formData.append("file", file);
-        importLecturer({
+        importResult({
+            id: result.id,
             formData,
             setErrors,
             setStatus,
@@ -53,8 +39,8 @@ const LecturerImport = ({ onClick }) => {
             acceptCharset="UTF-8"
             encType="multipart/form-data">
             <div className="flex items-center justify-between border-b px-8 py-4 ">
-                <h4 className="text-2xl font-bold text-black-text">
-                    Import lecturer (CSV)
+                <h4 className="text-2xl font-bold text-black-text capitalize">
+                    Import Result
                 </h4>
                 <div className="space-x-4">
                     <Button
@@ -75,18 +61,18 @@ const LecturerImport = ({ onClick }) => {
             <div className="pb-10">
                 <div className="py-4 px-8 pr-10 space-y-5">
                     <div className="flex items-center justify-between">
-                        <p>Sample CSV file </p>
-                        <button
+                        <p>Sample Excel file </p>
+                        <a
+                            href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/export/results/${result.id}`}
                             type="button"
-                            onClick={handleSampleDownload}
                             className="bg-primary-accent text-primary py-2 px-6 text-sm rounded-md">
                             Download
-                        </button>
+                        </a>
                     </div>
                 </div>
                 <div className="py-6 px-8 pr-10 space-y-5">
                     <div className="">
-                        <Label htmlFor="file">CSV File</Label>
+                        <Label htmlFor="file">Excel File</Label>
                         <Input
                             id="file"
                             type="file"
@@ -107,4 +93,4 @@ const LecturerImport = ({ onClick }) => {
     );
 };
 
-export default LecturerImport;
+export default ResultImport;

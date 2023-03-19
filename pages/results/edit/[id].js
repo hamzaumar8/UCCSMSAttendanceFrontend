@@ -2,17 +2,27 @@ import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
 import { AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
+import { useRecoilState } from "recoil";
 import Button from "../../../components/Button";
 import HeadTitle from "../../../components/HeadTitle";
 import InputError from "../../../components/InputError";
 import AppLayout from "../../../components/Layouts/AppLayout";
 import { ModalLoader } from "../../../components/PageLoader";
 import SemesterTag from "../../../components/SemesterTag";
+import {
+    modalEditState,
+    modalState,
+    modalTypeState,
+} from "../../../src/atoms/modalAtom";
 import { useResult } from "../../../src/hooks/result";
 import axios from "../../../src/lib/axios";
 
 const EditResult = ({ result }) => {
     const { editResult, loading } = useResult();
+
+    const [modalOpen, setModalOpen] = useRecoilState(modalState);
+    const [modalType, setModalType] = useRecoilState(modalTypeState);
+    const [modalEdit, setModalEdit] = useRecoilState(modalEditState);
     const [scores, setScores] = useState(result.assessments);
 
     const handleChange = (e, index) => {
@@ -63,12 +73,19 @@ const EditResult = ({ result }) => {
                                 </h1>
                                 <SemesterTag />
                             </div>
-                            {/* <div>
-                                <button className="inline-flex items-center px-6 py-2 bg-white text-primary rounded-full font-bold text-xs capitalize border border-primary tracking-widest transition ease-in-out duration-150">
+                            <div>
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setModalOpen(true);
+                                        setModalType("importResult");
+                                        setModalEdit(result);
+                                    }}
+                                    className="inline-flex items-center px-6 py-2 bg-white text-primary rounded-full font-bold text-xs capitalize border border-primary tracking-widest transition ease-in-out duration-150">
                                     <ArrowUpTrayIcon className="w-4 h-4 mr-1" />
-                                    Improt CSV
+                                    Import CSV
                                 </button>
-                            </div> */}
+                            </div>
                             <div className="space-x-2">
                                 <Button
                                     type="submit"
@@ -111,7 +128,7 @@ const EditResult = ({ result }) => {
                                                         <div>{index + 1}.</div>
                                                     </span>
                                                 </td>
-                                                <td className="capitalize p-5 whitespace-nowrap border-b">
+                                                <td className="uppercase p-5 whitespace-nowrap border-b">
                                                     <span>
                                                         <div>
                                                             {

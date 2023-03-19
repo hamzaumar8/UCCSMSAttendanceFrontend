@@ -70,7 +70,7 @@ export const useModule = () => {
                     setLoading(false);
                     refreshData();
                     setModalOpen(false);
-                    toast.success("Module editted successfully!", {
+                    toast.success("Module edited successfully!", {
                         position: toast.POSITION.TOP_RIGHT,
                     });
                 }
@@ -187,7 +187,7 @@ export const useModule = () => {
                     setLoading(false);
                     refreshData();
                     setModalOpen(false);
-                    toast.success("Mounted module editted successfully!", {
+                    toast.success("Mounted module edited successfully!", {
                         position: toast.POSITION.TOP_RIGHT,
                     });
                 }

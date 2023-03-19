@@ -20,7 +20,7 @@ const panelVariants = {
 
 const SlideUp = ({ children, className = "", onClick = "" }) => {
     return (
-        <div className={`${className} checkInModal`}>
+        <div className={`${className} checkInModal`} onClick={onClick}>
             <motion.div
                 className="overlay"
                 initial="hidden"
